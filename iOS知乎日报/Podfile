@@ -1,0 +1,5 @@
+platform :ios, '7.0'
+target 'iOS知乎日报' do
+pod 'Masonry'
+pod 'JSONModel' 
+end

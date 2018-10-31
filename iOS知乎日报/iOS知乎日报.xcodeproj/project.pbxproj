@@ -1,0 +1,696 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F0B7ADA2181EB8700CEE214 /* main_img3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD62181EB8700CEE214 /* main_img3.png */; };
+		4F0B7ADB2181EB8700CEE214 /* main_img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD72181EB8700CEE214 /* main_img1.png */; };
+		4F0B7ADC2181EB8700CEE214 /* main_img4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD82181EB8700CEE214 /* main_img4.png */; };
+		4F0B7ADD2181EB8700CEE214 /* main_img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD92181EB8700CEE214 /* main_img2.png */; };
+		4F0D6A5A2189D625002E4463 /* ZDITableViewSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D6A592189D625002E4463 /* ZDITableViewSectionView.m */; };
+		4F11D2DC21833A69005392EA /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F11D2DB21833A69005392EA /* HomePageModel.m */; };
+		4F2F923B217E018700A41AD1 /* TQYHomePageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2F923A217E018700A41AD1 /* TQYHomePageTableViewCell.m */; };
+		4F56032C21760EC400E6F066 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F56032B21760EC400E6F066 /* AppDelegate.m */; };
+		4F56032F21760EC400E6F066 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F56032E21760EC400E6F066 /* ViewController.m */; };
+		4F56033221760EC400E6F066 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F56033021760EC400E6F066 /* Main.storyboard */; };
+		4F56033421760EC600E6F066 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F56033321760EC600E6F066 /* Assets.xcassets */; };
+		4F56033721760EC600E6F066 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F56033521760EC600E6F066 /* LaunchScreen.storyboard */; };
+		4F56033A21760EC600E6F066 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F56033921760EC600E6F066 /* main.m */; };
+		4F56034421760EC600E6F066 /* iOS____Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F56034321760EC600E6F066 /* iOS____Tests.m */; };
+		4F56034F21760EC600E6F066 /* iOS____UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F56034E21760EC600E6F066 /* iOS____UITests.m */; };
+		4F560362217615F300E6F066 /* TQYPageHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F560361217615F300E6F066 /* TQYPageHomeView.m */; };
+		D323B1C75DD05FDF8F23487D /* libPods-iOS知乎日报.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D196A5AAD7B4B3118103E0 /* libPods-iOS知乎日报.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4F56034021760EC600E6F066 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F56031F21760EC300E6F066 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F56032621760EC300E6F066;
+			remoteInfo = "iOS知乎日报";
+		};
+		4F56034B21760EC600E6F066 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F56031F21760EC300E6F066 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F56032621760EC300E6F066;
+			remoteInfo = "iOS知乎日报";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A867968E5D189BF6DC5CA78 /* Pods-iOS知乎日报.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS知乎日报.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS知乎日报/Pods-iOS知乎日报.debug.xcconfig"; sourceTree = "<group>"; };
+		4F0B7AD62181EB8700CEE214 /* main_img3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img3.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img3.png"; sourceTree = "<group>"; };
+		4F0B7AD72181EB8700CEE214 /* main_img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img1.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img1.png"; sourceTree = "<group>"; };
+		4F0B7AD82181EB8700CEE214 /* main_img4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img4.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img4.png"; sourceTree = "<group>"; };
+		4F0B7AD92181EB8700CEE214 /* main_img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img2.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img2.png"; sourceTree = "<group>"; };
+		4F0D6A582189D625002E4463 /* ZDITableViewSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDITableViewSectionView.h; sourceTree = "<group>"; };
+		4F0D6A592189D625002E4463 /* ZDITableViewSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZDITableViewSectionView.m; sourceTree = "<group>"; };
+		4F11D2DA21833A69005392EA /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
+		4F11D2DB21833A69005392EA /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
+		4F2F9239217E018700A41AD1 /* TQYHomePageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TQYHomePageTableViewCell.h; sourceTree = "<group>"; };
+		4F2F923A217E018700A41AD1 /* TQYHomePageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TQYHomePageTableViewCell.m; sourceTree = "<group>"; };
+		4F56032721760EC300E6F066 /* iOS知乎日报.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS知乎日报.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F56032A21760EC400E6F066 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4F56032B21760EC400E6F066 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4F56032D21760EC400E6F066 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		4F56032E21760EC400E6F066 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4F56033121760EC400E6F066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4F56033321760EC600E6F066 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4F56033621760EC600E6F066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4F56033821760EC600E6F066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F56033921760EC600E6F066 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4F56033F21760EC600E6F066 /* iOS知乎日报Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS知乎日报Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F56034321760EC600E6F066 /* iOS____Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "iOS____Tests.m"; sourceTree = "<group>"; };
+		4F56034521760EC600E6F066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F56034A21760EC600E6F066 /* iOS知乎日报UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS知乎日报UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F56034E21760EC600E6F066 /* iOS____UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "iOS____UITests.m"; sourceTree = "<group>"; };
+		4F56035021760EC600E6F066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F560360217615F300E6F066 /* TQYPageHomeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TQYPageHomeView.h; sourceTree = "<group>"; };
+		4F560361217615F300E6F066 /* TQYPageHomeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TQYPageHomeView.m; sourceTree = "<group>"; };
+		9F10F8D86FE1EA7439DF5BDE /* Pods-iOS知乎日报.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS知乎日报.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS知乎日报/Pods-iOS知乎日报.release.xcconfig"; sourceTree = "<group>"; };
+		A0D196A5AAD7B4B3118103E0 /* libPods-iOS知乎日报.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOS知乎日报.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4F56032421760EC300E6F066 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D323B1C75DD05FDF8F23487D /* libPods-iOS知乎日报.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56033C21760EC600E6F066 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56034721760EC600E6F066 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		283EFEC6986DF7CAB10BCBBA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A867968E5D189BF6DC5CA78 /* Pods-iOS知乎日报.debug.xcconfig */,
+				9F10F8D86FE1EA7439DF5BDE /* Pods-iOS知乎日报.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4F56031E21760EC300E6F066 = {
+			isa = PBXGroup;
+			children = (
+				4F56032921760EC300E6F066 /* iOS知乎日报 */,
+				4F56034221760EC600E6F066 /* iOS知乎日报Tests */,
+				4F56034D21760EC600E6F066 /* iOS知乎日报UITests */,
+				4F56032821760EC300E6F066 /* Products */,
+				283EFEC6986DF7CAB10BCBBA /* Pods */,
+				B151FDA639408A92DC2B4856 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4F56032821760EC300E6F066 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4F56032721760EC300E6F066 /* iOS知乎日报.app */,
+				4F56033F21760EC600E6F066 /* iOS知乎日报Tests.xctest */,
+				4F56034A21760EC600E6F066 /* iOS知乎日报UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4F56032921760EC300E6F066 /* iOS知乎日报 */ = {
+			isa = PBXGroup;
+			children = (
+				4F56035F217615CE00E6F066 /* PageHome */,
+				4F56032A21760EC400E6F066 /* AppDelegate.h */,
+				4F56032B21760EC400E6F066 /* AppDelegate.m */,
+				4F56033021760EC400E6F066 /* Main.storyboard */,
+				4F56033321760EC600E6F066 /* Assets.xcassets */,
+				4F56033521760EC600E6F066 /* LaunchScreen.storyboard */,
+				4F56033821760EC600E6F066 /* Info.plist */,
+				4F56033921760EC600E6F066 /* main.m */,
+			);
+			path = "iOS知乎日报";
+			sourceTree = "<group>";
+		};
+		4F56034221760EC600E6F066 /* iOS知乎日报Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4F56034321760EC600E6F066 /* iOS____Tests.m */,
+				4F56034521760EC600E6F066 /* Info.plist */,
+			);
+			path = "iOS知乎日报Tests";
+			sourceTree = "<group>";
+		};
+		4F56034D21760EC600E6F066 /* iOS知乎日报UITests */ = {
+			isa = PBXGroup;
+			children = (
+				4F56034E21760EC600E6F066 /* iOS____UITests.m */,
+				4F56035021760EC600E6F066 /* Info.plist */,
+			);
+			path = "iOS知乎日报UITests";
+			sourceTree = "<group>";
+		};
+		4F56035C2176159B00E6F066 /* PageHomeView */ = {
+			isa = PBXGroup;
+			children = (
+				4F560360217615F300E6F066 /* TQYPageHomeView.h */,
+				4F560361217615F300E6F066 /* TQYPageHomeView.m */,
+				4F2F9239217E018700A41AD1 /* TQYHomePageTableViewCell.h */,
+				4F2F923A217E018700A41AD1 /* TQYHomePageTableViewCell.m */,
+				4F0D6A582189D625002E4463 /* ZDITableViewSectionView.h */,
+				4F0D6A592189D625002E4463 /* ZDITableViewSectionView.m */,
+			);
+			path = PageHomeView;
+			sourceTree = "<group>";
+		};
+		4F56035D217615AC00E6F066 /* PageHomeModel */ = {
+			isa = PBXGroup;
+			children = (
+				4F11D2DA21833A69005392EA /* HomePageModel.h */,
+				4F11D2DB21833A69005392EA /* HomePageModel.m */,
+			);
+			path = PageHomeModel;
+			sourceTree = "<group>";
+		};
+		4F56035E217615BE00E6F066 /* PageHomeController */ = {
+			isa = PBXGroup;
+			children = (
+				4F0B7AD72181EB8700CEE214 /* main_img1.png */,
+				4F0B7AD92181EB8700CEE214 /* main_img2.png */,
+				4F0B7AD62181EB8700CEE214 /* main_img3.png */,
+				4F0B7AD82181EB8700CEE214 /* main_img4.png */,
+				4F56032D21760EC400E6F066 /* ViewController.h */,
+				4F56032E21760EC400E6F066 /* ViewController.m */,
+			);
+			path = PageHomeController;
+			sourceTree = "<group>";
+		};
+		4F56035F217615CE00E6F066 /* PageHome */ = {
+			isa = PBXGroup;
+			children = (
+				4F56035E217615BE00E6F066 /* PageHomeController */,
+				4F56035D217615AC00E6F066 /* PageHomeModel */,
+				4F56035C2176159B00E6F066 /* PageHomeView */,
+			);
+			path = PageHome;
+			sourceTree = "<group>";
+		};
+		B151FDA639408A92DC2B4856 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0D196A5AAD7B4B3118103E0 /* libPods-iOS知乎日报.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4F56032621760EC300E6F066 /* iOS知乎日报 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F56035321760EC600E6F066 /* Build configuration list for PBXNativeTarget "iOS知乎日报" */;
+			buildPhases = (
+				0F4BF94BA8F23CF384B269A5 /* [CP] Check Pods Manifest.lock */,
+				4F56032321760EC300E6F066 /* Sources */,
+				4F56032421760EC300E6F066 /* Frameworks */,
+				4F56032521760EC300E6F066 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS知乎日报";
+			productName = "iOS知乎日报";
+			productReference = 4F56032721760EC300E6F066 /* iOS知乎日报.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4F56033E21760EC600E6F066 /* iOS知乎日报Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F56035621760EC600E6F066 /* Build configuration list for PBXNativeTarget "iOS知乎日报Tests" */;
+			buildPhases = (
+				4F56033B21760EC600E6F066 /* Sources */,
+				4F56033C21760EC600E6F066 /* Frameworks */,
+				4F56033D21760EC600E6F066 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4F56034121760EC600E6F066 /* PBXTargetDependency */,
+			);
+			name = "iOS知乎日报Tests";
+			productName = "iOS知乎日报Tests";
+			productReference = 4F56033F21760EC600E6F066 /* iOS知乎日报Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4F56034921760EC600E6F066 /* iOS知乎日报UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F56035921760EC600E6F066 /* Build configuration list for PBXNativeTarget "iOS知乎日报UITests" */;
+			buildPhases = (
+				4F56034621760EC600E6F066 /* Sources */,
+				4F56034721760EC600E6F066 /* Frameworks */,
+				4F56034821760EC600E6F066 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4F56034C21760EC600E6F066 /* PBXTargetDependency */,
+			);
+			name = "iOS知乎日报UITests";
+			productName = "iOS知乎日报UITests";
+			productReference = 4F56034A21760EC600E6F066 /* iOS知乎日报UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4F56031F21760EC300E6F066 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "涂强尧";
+				TargetAttributes = {
+					4F56032621760EC300E6F066 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					4F56033E21760EC600E6F066 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 4F56032621760EC300E6F066;
+					};
+					4F56034921760EC600E6F066 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 4F56032621760EC300E6F066;
+					};
+				};
+			};
+			buildConfigurationList = 4F56032221760EC300E6F066 /* Build configuration list for PBXProject "iOS知乎日报" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4F56031E21760EC300E6F066;
+			productRefGroup = 4F56032821760EC300E6F066 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F56032621760EC300E6F066 /* iOS知乎日报 */,
+				4F56033E21760EC600E6F066 /* iOS知乎日报Tests */,
+				4F56034921760EC600E6F066 /* iOS知乎日报UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4F56032521760EC300E6F066 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F0B7ADA2181EB8700CEE214 /* main_img3.png in Resources */,
+				4F0B7ADB2181EB8700CEE214 /* main_img1.png in Resources */,
+				4F56033721760EC600E6F066 /* LaunchScreen.storyboard in Resources */,
+				4F0B7ADC2181EB8700CEE214 /* main_img4.png in Resources */,
+				4F56033421760EC600E6F066 /* Assets.xcassets in Resources */,
+				4F56033221760EC400E6F066 /* Main.storyboard in Resources */,
+				4F0B7ADD2181EB8700CEE214 /* main_img2.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56033D21760EC600E6F066 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56034821760EC600E6F066 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F4BF94BA8F23CF384B269A5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOS知乎日报-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F56032321760EC300E6F066 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F56032F21760EC400E6F066 /* ViewController.m in Sources */,
+				4F11D2DC21833A69005392EA /* HomePageModel.m in Sources */,
+				4F2F923B217E018700A41AD1 /* TQYHomePageTableViewCell.m in Sources */,
+				4F56033A21760EC600E6F066 /* main.m in Sources */,
+				4F56032C21760EC400E6F066 /* AppDelegate.m in Sources */,
+				4F0D6A5A2189D625002E4463 /* ZDITableViewSectionView.m in Sources */,
+				4F560362217615F300E6F066 /* TQYPageHomeView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56033B21760EC600E6F066 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F56034421760EC600E6F066 /* iOS____Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56034621760EC600E6F066 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F56034F21760EC600E6F066 /* iOS____UITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4F56034121760EC600E6F066 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F56032621760EC300E6F066 /* iOS知乎日报 */;
+			targetProxy = 4F56034021760EC600E6F066 /* PBXContainerItemProxy */;
+		};
+		4F56034C21760EC600E6F066 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F56032621760EC300E6F066 /* iOS知乎日报 */;
+			targetProxy = 4F56034B21760EC600E6F066 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4F56033021760EC400E6F066 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F56033121760EC400E6F066 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4F56033521760EC600E6F066 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F56033621760EC600E6F066 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4F56035121760EC600E6F066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4F56035221760EC600E6F066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4F56035421760EC600E6F066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A867968E5D189BF6DC5CA78 /* Pods-iOS知乎日报.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOS知乎日报/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "xiyou3g.iOS----";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4F56035521760EC600E6F066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F10F8D86FE1EA7439DF5BDE /* Pods-iOS知乎日报.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOS知乎日报/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "xiyou3g.iOS----";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4F56035721760EC600E6F066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOS知乎日报Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "xiyou3g.iOS----Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS知乎日报.app/iOS知乎日报";
+			};
+			name = Debug;
+		};
+		4F56035821760EC600E6F066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOS知乎日报Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "xiyou3g.iOS----Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS知乎日报.app/iOS知乎日报";
+			};
+			name = Release;
+		};
+		4F56035A21760EC600E6F066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOS知乎日报UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "xiyou3g.iOS----UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "iOS知乎日报";
+			};
+			name = Debug;
+		};
+		4F56035B21760EC600E6F066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOS知乎日报UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "xiyou3g.iOS----UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "iOS知乎日报";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4F56032221760EC300E6F066 /* Build configuration list for PBXProject "iOS知乎日报" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F56035121760EC600E6F066 /* Debug */,
+				4F56035221760EC600E6F066 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F56035321760EC600E6F066 /* Build configuration list for PBXNativeTarget "iOS知乎日报" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F56035421760EC600E6F066 /* Debug */,
+				4F56035521760EC600E6F066 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F56035621760EC600E6F066 /* Build configuration list for PBXNativeTarget "iOS知乎日报Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F56035721760EC600E6F066 /* Debug */,
+				4F56035821760EC600E6F066 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F56035921760EC600E6F066 /* Build configuration list for PBXNativeTarget "iOS知乎日报UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F56035A21760EC600E6F066 /* Debug */,
+				4F56035B21760EC600E6F066 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4F56031F21760EC300E6F066 /* Project object */;
+}
