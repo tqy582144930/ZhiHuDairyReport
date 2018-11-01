@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F0B7ADA2181EB8700CEE214 /* main_img3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD62181EB8700CEE214 /* main_img3.png */; };
-		4F0B7ADB2181EB8700CEE214 /* main_img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD72181EB8700CEE214 /* main_img1.png */; };
-		4F0B7ADC2181EB8700CEE214 /* main_img4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD82181EB8700CEE214 /* main_img4.png */; };
-		4F0B7ADD2181EB8700CEE214 /* main_img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F0B7AD92181EB8700CEE214 /* main_img2.png */; };
 		4F0D6A5A2189D625002E4463 /* ZDITableViewSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D6A592189D625002E4463 /* ZDITableViewSectionView.m */; };
 		4F11D2DC21833A69005392EA /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F11D2DB21833A69005392EA /* HomePageModel.m */; };
 		4F2F923B217E018700A41AD1 /* TQYHomePageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2F923A217E018700A41AD1 /* TQYHomePageTableViewCell.m */; };
@@ -45,10 +41,6 @@
 
 /* Begin PBXFileReference section */
 		1A867968E5D189BF6DC5CA78 /* Pods-iOS知乎日报.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS知乎日报.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS知乎日报/Pods-iOS知乎日报.debug.xcconfig"; sourceTree = "<group>"; };
-		4F0B7AD62181EB8700CEE214 /* main_img3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img3.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img3.png"; sourceTree = "<group>"; };
-		4F0B7AD72181EB8700CEE214 /* main_img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img1.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img1.png"; sourceTree = "<group>"; };
-		4F0B7AD82181EB8700CEE214 /* main_img4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img4.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img4.png"; sourceTree = "<group>"; };
-		4F0B7AD92181EB8700CEE214 /* main_img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_img2.png; path = "../../../../shareApp/share/share首页轮播图-图片/main_img2.png"; sourceTree = "<group>"; };
 		4F0D6A582189D625002E4463 /* ZDITableViewSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDITableViewSectionView.h; sourceTree = "<group>"; };
 		4F0D6A592189D625002E4463 /* ZDITableViewSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZDITableViewSectionView.m; sourceTree = "<group>"; };
 		4F11D2DA21833A69005392EA /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
@@ -192,10 +184,6 @@
 		4F56035E217615BE00E6F066 /* PageHomeController */ = {
 			isa = PBXGroup;
 			children = (
-				4F0B7AD72181EB8700CEE214 /* main_img1.png */,
-				4F0B7AD92181EB8700CEE214 /* main_img2.png */,
-				4F0B7AD62181EB8700CEE214 /* main_img3.png */,
-				4F0B7AD82181EB8700CEE214 /* main_img4.png */,
 				4F56032D21760EC400E6F066 /* ViewController.h */,
 				4F56032E21760EC400E6F066 /* ViewController.m */,
 			);
@@ -324,13 +312,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F0B7ADA2181EB8700CEE214 /* main_img3.png in Resources */,
-				4F0B7ADB2181EB8700CEE214 /* main_img1.png in Resources */,
 				4F56033721760EC600E6F066 /* LaunchScreen.storyboard in Resources */,
-				4F0B7ADC2181EB8700CEE214 /* main_img4.png in Resources */,
 				4F56033421760EC600E6F066 /* Assets.xcassets in Resources */,
 				4F56033221760EC400E6F066 /* Main.storyboard in Resources */,
-				4F0B7ADD2181EB8700CEE214 /* main_img2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

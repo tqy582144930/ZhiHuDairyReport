@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSMutableArray *topStoriesImageMutableArray;
 @property (nonatomic, strong) ZDITableViewSectionView *sectionView;
 @property (nonatomic, strong) NSMutableArray *navigitionMutableArray;
+@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSMutableArray *dataMutableArray;
 
 + (UIImage *) creatImageWithColor:(UIColor *)color;
 @end

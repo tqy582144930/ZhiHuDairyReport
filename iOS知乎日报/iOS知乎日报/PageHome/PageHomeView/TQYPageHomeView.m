@@ -24,7 +24,7 @@ static const int imageButtonCount = 3;
         [_homePageTableView registerClass:[TQYHomePageTableViewCell class] forCellReuseIdentifier:@"pictureCell"];
         [self addSubview:_homePageTableView];
         
-        _homePageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
+        _homePageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 220)];
         _homePageScrollView.delegate = self;
         //横竖两种滚轮都不显示
         _homePageScrollView.showsVerticalScrollIndicator = NO;
@@ -38,14 +38,16 @@ static const int imageButtonCount = 3;
         //在scrollView中添加三个图片按钮，因为后面需要响应点击事件，所以我直接用按钮不用imageView了，感觉更方便一些
         for (int i = 0;i < imageButtonCount; i++) {
             UIButton *imageBtn = [[UIButton alloc] init];
+            UILabel *label = [[UILabel alloc] init];
             [_homePageScrollView addSubview:imageBtn];
+            [imageBtn addSubview:label];
         }
         //添加pageControl
         _homePageController = [[UIPageControl alloc] init];
         [self addSubview:_homePageController];
         [_homePageController mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width, 20));
-            make.top.mas_equalTo(self.mas_top).mas_equalTo(240);
+            make.top.mas_equalTo(self.mas_top).mas_equalTo(200);
             make.centerX.mas_equalTo(self);
         }];
     }
@@ -68,7 +70,6 @@ static const int imageButtonCount = 3;
         cell.titleLabel.text = [_storiesTitleMutableArray objectAtIndex:indexPath.row];
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[_storiesImageMutableArray objectAtIndex:indexPath.row][0]]];
         cell.titleImageView.image = [UIImage imageWithData:data];
-    
         return cell;
 }
 
@@ -77,7 +78,7 @@ static const int imageButtonCount = 3;
     [super layoutSubviews];
     //设置scrollView的frame
     CGFloat width = self.bounds.size.width;
-    CGFloat height = 200;
+    CGFloat height = 220;
     //设置contentSize,不同轮播方向的时候contentSize是不一样的
     if (self.isScrollDorectionPortrait) { //竖向
         //contentSize要放三张图片
@@ -121,7 +122,7 @@ static const int imageButtonCount = 3;
     _homePageController.pageIndicatorTintColor = pageColor;
 }
 //根据传入的图片数组设置图片
-- (void)setImages:(NSArray *)images {
+- (void)setImages:(NSArray *)images  {
     _images = images;
     //pageControl的页数就是图片的个数
     _homePageController.numberOfPages = images.count;
@@ -157,7 +158,6 @@ static const int imageButtonCount = 3;
         //用上面处理好的索引给imageBtn设置图片
         [imageBtn setBackgroundImage:self.images[index] forState:UIControlStateNormal];
         [imageBtn setBackgroundImage:self.images[index] forState:UIControlStateHighlighted];
-        
     }
 }
 //状态改变之后更新显示内容
@@ -232,7 +232,7 @@ static const int imageButtonCount = 3;
 }
 //通过改变contentOffset * 2换到下一张图片
 - (void)nextImage {
-    CGFloat height = 200;
+    CGFloat height = 220;
     CGFloat width = self.bounds.size.width;
     if (self.isScrollDorectionPortrait) {
         [_homePageScrollView setContentOffset:CGPointMake(0, 2 * height) animated:YES];

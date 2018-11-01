@@ -26,7 +26,7 @@
     
     _homePageView = [[TQYPageHomeView alloc] initWithFrame:self.view.frame];
     _homePageView.homePageTableView.delegate = self;
-//    _homePageView.images = ;
+
     [self.view addSubview:_homePageView];
     
     _homePageModel = [[HomePageModel alloc] init];
@@ -53,12 +53,21 @@
 
 - (void) sendTopStoriesTitle: (NSNotification *)notification {
 //    _topStoriesTitleMutableArray = [NSMutableArray arrayWithArray:notification.object];
+//    NSLog(@"%@", _topStoriesTitleMutableArray);
+//    _homePageView.lables = _topStoriesTitleMutableArray;
 //    [_homePageView.homePageScrollView reloadData];
 }
 
 - (void) sendTopStoriesImages: (NSNotification *)notification {
-//    _topStoriesImageMutableArray = [NSMutableArray arrayWithArray:notification.object];
-//    [_homePageView.homePageScrollView reloadData];
+    _topStoriesImageMutableArray = [NSMutableArray arrayWithArray:notification.object];
+//    NSLog(@"%@", _topStoriesImageMutableArray);
+    _dataMutableArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < _topStoriesImageMutableArray.count; i++) {
+        _data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[_topStoriesImageMutableArray objectAtIndex:i]]];
+        [_dataMutableArray addObject:[UIImage imageWithData:_data]];
+    }
+//    NSLog(@"%@", _dataMutableArray);
+    _homePageView.images = _dataMutableArray;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
