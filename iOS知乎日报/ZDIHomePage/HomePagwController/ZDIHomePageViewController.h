@@ -1,0 +1,26 @@
+//
+//  ZDIHomePageViewController.h
+//  iOS知乎日报
+//
+//  Created by 涂强尧 on 2018/11/5.
+//  Copyright © 2018 涂强尧. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "ZDIHomePageView.h"
+#import "ZDIHomePageModel.h"
+#import "ZDITableViewSectionView.h"
+
+@interface ZDIHomePageViewController : UIViewController <UITableViewDelegate>
+@property (nonatomic, strong) ZDIHomePageView *homePageView;
+@property (nonatomic, strong) ZDIHomePageModel *homePageModel;
+@property (nonatomic, strong) NSMutableArray *topStoriesTitleMutableArray;
+@property (nonatomic, strong) NSMutableArray *topStoriesImageMutableArray;
+@property (nonatomic, strong) ZDITableViewSectionView *sectionView;
+@property (nonatomic, strong) NSMutableArray *navigitionMutableArray;
+@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSMutableArray *dataMutableArray;
+
++ (UIImage *) creatImageWithColor:(UIColor *)color;
+
+@end
