@@ -54,11 +54,12 @@ static const int imageButtonCount = 3;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    NSLog(@"c%li", _number);
+    return _number;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _storiesTitleMutableArray.count;
+    return [_allJsonModel.stories count];
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -66,9 +67,13 @@ static const int imageButtonCount = 3;
     if (cell == nil) {
         cell = [_homePageTableView dequeueReusableCellWithIdentifier:@"pictureCell" forIndexPath:indexPath];
     }
-    cell.titleLabel.text = [_storiesTitleMutableArray objectAtIndex:indexPath.row];
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[_storiesImageMutableArray objectAtIndex:indexPath.row][0]]];
+    cell.titleLabel.text = [_allJsonModel.stories[indexPath.row] title];
+    
+    NSArray *array = [_allJsonModel.stories[indexPath.row] images];
+    NSString *urlSting = array[0];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlSting]];
     cell.titleImageView.image = [UIImage imageWithData:data];
+    
     return cell;
 }
 

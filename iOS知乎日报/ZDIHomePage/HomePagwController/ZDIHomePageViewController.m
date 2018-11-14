@@ -9,14 +9,23 @@
 #import "ZDIHomePageViewController.h"
 
 @interface ZDIHomePageViewController ()
-
+@property (nonatomic, assign) NSInteger days;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, strong) NSMutableArray *dayMutableArray;
 @end
 
 @implementation ZDIHomePageViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updataHomePageView];
+}
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.days = -1;
+    _dayMutableArray = [NSMutableArray new];
     self.navigationItem.title = @"今日热闻";
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
@@ -27,53 +36,12 @@
     
     _homePageView = [[ZDIHomePageView alloc] initWithFrame:self.view.frame];
     _homePageView.homePageTableView.delegate = self;
-    
     [self.view addSubview:_homePageView];
-    
-    _homePageModel = [[ZDIHomePageModel alloc] init];
-    [_homePageModel load];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendStoriesTitle:) name:@"sendStoriesTitle" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendStoriesImages:) name:@"sendStoriesImages" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendTopStoriesTitle:) name:@"sendTopStoriesTitle" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendTopStoriesImages:) name:@"sendTopStoriesImages" object:nil];
 }
 
 - (void)openCloseMenu: (UIBarButtonItem *)sender
 {
     [self.navigationController.parentViewController performSelector:@selector(openCloseMenu)];
-}
-
-- (void) sendStoriesTitle: (NSNotification *)notifaction {
-    _homePageView.storiesTitleMutableArray = [NSMutableArray arrayWithArray:notifaction.object];
-    _navigitionMutableArray = [NSMutableArray arrayWithArray:notifaction.object];
-    [_homePageView.homePageTableView reloadData];
-    //    NSLog(@"111%ld", _homePageView.storiesTitleMutableArray.count);
-}
-
-- (void) sendStoriesImages: (NSNotification *)notification {
-    _homePageView.storiesImageMutableArray = [NSMutableArray arrayWithArray:notification.object];
-    [_homePageView.homePageTableView reloadData];
-    //    NSLog(@"1111%@", _homePageView.storiesImageMutableArray);
-}
-
-- (void) sendTopStoriesTitle: (NSNotification *)notification {
-    //    _topStoriesTitleMutableArray = [NSMutableArray arrayWithArray:notification.object];
-    //    NSLog(@"%@", _topStoriesTitleMutableArray);
-    //    _homePageView.lables = _topStoriesTitleMutableArray;
-    //    [_homePageView.homePageScrollView reloadData];
-}
-
-- (void) sendTopStoriesImages: (NSNotification *)notification {
-    _topStoriesImageMutableArray = [NSMutableArray arrayWithArray:notification.object];
-    //    NSLog(@"%@", _topStoriesImageMutableArray);
-    _dataMutableArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < _topStoriesImageMutableArray.count; i++) {
-        _data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[_topStoriesImageMutableArray objectAtIndex:i]]];
-        [_dataMutableArray addObject:[UIImage imageWithData:_data]];
-    }
-    //    NSLog(@"%@", _dataMutableArray);
-    _homePageView.images = _dataMutableArray;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -147,7 +115,7 @@
 
 //导航栏渐变
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < (_navigitionMutableArray.count * 90 + 200)) {
+    if (scrollView.contentOffset.y < ([_homePageView.allJsonModel.stories count] * 90 + 200)) {
         self.navigationController.navigationBar.hidden = NO;
         self.navigationItem.title = @"今日热闻";
         UIImage *colorImage = [ZDIHomePageViewController creatImageWithColor:[UIColor colorWithRed:0.24f green:0.78f blue:0.99f alpha:1.00f]];
@@ -156,8 +124,59 @@
     } else {
         self.navigationController.navigationBar.hidden = YES;
     }
+    
+//    NSLog(@"%f %lu",scrollView.contentOffset.y,[_homePageView.allJsonModel.stories count] * 90 + 200);
+//    NSLog(@"%f",scrollView.frame.size.height);
+//    NSLog(@"%f",scrollView.contentSize.height);
+    if (scrollView.contentOffset.y + scrollView.frame.size.height >= (([_homePageView.allJsonModel.stories count] * 90 * _dayMutableArray.count) + 200 )) {
+        NSLog(@"111");
+        [UIView commitAnimations];
+        
+        [UIView animateWithDuration:2.0 animations:^{
+            self.homePageView.homePageTableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+        } completion:^(BOOL finished) {
+            [self updataHomePageView];
+            self.homePageView.homePageTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        }];
+    }
 }
 
+- (void)updataHomePageView {
+    self.isLoading = YES;
+    if (_days == -1) {
+        [[ZDIHomePageManager sharedManager] fetchHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
+            self.homePageView.allJsonModel = homaPageModel;
+            [self->_dayMutableArray addObject:homaPageModel];
+            NSLog(@"a%li", self->_dayMutableArray.count);
+            self->_days++;
+            self.homePageView.number = [self->_dayMutableArray count];
+            self->_dataMutableArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [homaPageModel.top_stories count]; i++) {
+                NSString *string = [NSString stringWithString:[homaPageModel.top_stories[i] imageStr]];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:string]];
+                UIImage *result = [UIImage imageWithData: data];
+                [self->_dataMutableArray addObject:result];
+            }
+            self->_homePageView.images = self->_dataMutableArray;
+            [self->_homePageView.homePageTableView reloadData];
+        } error:^(NSError *error) {
+            
+        }];
+    } else {
+        [[ZDIHomePageManager sharedManager] fetchDatBeforeHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
+            self.homePageView.allJsonModel = homaPageModel;
+            [self->_dayMutableArray addObject:homaPageModel];
+            self->_days++;
+            self.homePageView.number = [self->_dayMutableArray count];
+            [self->_homePageView.homePageTableView reloadData];
+        } error:^(NSError *error) {
+            
+        }];
+    }
+    self.isLoading = NO;
+    
+    NSLog(@"b%li", [_dayMutableArray count]);
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

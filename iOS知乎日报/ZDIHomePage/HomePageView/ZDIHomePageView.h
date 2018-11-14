@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "ZDITableViewSectionView.h"
+#import "ZDITopStoriseJSONModel.h"
 
 @interface ZDIHomePageView : UIView <UITableViewDataSource, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *homePageScrollView;
 @property (nonatomic, strong) UITableView *homePageTableView;
+@property (nonatomic, strong) ZDITotallJSONModel *allJsonModel;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *lables;
 @property (nonatomic, strong) UIPageControl *homePageController;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UIColor *currentPageColor;
 @property (nonatomic, strong) UIColor *pageColor;
+@property (nonatomic, assign) NSInteger number;
 //是否竖向滚动
 @property (nonatomic, assign, getter=isScrollDorectionPortrait) BOOL scrollDorectionPortrait;
 

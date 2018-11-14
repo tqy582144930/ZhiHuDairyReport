@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ZDIHomePageView.h"
-#import "ZDIHomePageModel.h"
 #import "ZDITableViewSectionView.h"
+#import "ZDIHomePageManager.h"
 
 @interface ZDIHomePageViewController : UIViewController <UITableViewDelegate>
 @property (nonatomic, strong) ZDIHomePageView *homePageView;
-@property (nonatomic, strong) ZDIHomePageModel *homePageModel;
-@property (nonatomic, strong) NSMutableArray *topStoriesTitleMutableArray;
-@property (nonatomic, strong) NSMutableArray *topStoriesImageMutableArray;
 @property (nonatomic, strong) ZDITableViewSectionView *sectionView;
 @property (nonatomic, strong) NSMutableArray *navigitionMutableArray;
 @property (nonatomic, strong) NSData *data;

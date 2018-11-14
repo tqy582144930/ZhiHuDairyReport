@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZDIHomePageModel.h"
+#import "ZDITopStoriseJSONModel.h"
 
 //返回当天数据
-typedef void(^ZDIHomePageData)(NSMutableArray *homaPageModel);
+typedef void(^ZDIHomePageData)(ZDITotallJSONModel *homaPageModel);
 
 // 请求失败统一回调block
 typedef void(^ErrorHandle)(NSError *error);
@@ -19,6 +19,6 @@ typedef void(^ErrorHandle)(NSError *error);
 
 + (instancetype)sharedManager;
 
-- (void)fetchHomePageDataSucceed:(ZDIHomePageData)succeedBlock error:(ErrorHandle)errorBlock;
-
+- (void)fetchHomePageDataDay:(NSInteger)day Succeed:(ZDIHomePageData)succeedBlock error:(ErrorHandle)errorBlock;
+- (void)fetchDatBeforeHomePageDataDay:(NSInteger)day Succeed:(ZDIHomePageData)succeedBlock error:(ErrorHandle)errorBlock;
 @end
