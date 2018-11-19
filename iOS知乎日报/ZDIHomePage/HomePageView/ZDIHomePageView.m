@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import "ZDIHomePageTableViewCell.h"
 #import "ZDITableViewSectionView.h"
+#import <UIImageView+WebCache.h>
 
 static const int imageButtonCount = 3;
 
@@ -71,8 +72,8 @@ static const int imageButtonCount = 3;
     
     NSArray *array = [_allJsonModel.stories[indexPath.row] images];
     NSString *urlSting = array[0];
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlSting]];
-    cell.titleImageView.image = [UIImage imageWithData:data];
+//    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlSting]];
+    [cell.titleImageView sd_setImageWithURL:urlSting];
     
     return cell;
 }

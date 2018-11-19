@@ -7,6 +7,7 @@
 //
 
 #import "ZDIHomePageViewController.h"
+#import "ZDINextViewController.h"
 
 @interface ZDIHomePageViewController ()
 @property (nonatomic, assign) NSInteger days;
@@ -16,10 +17,6 @@
 
 @implementation ZDIHomePageViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self updataHomePageView];
-}
     
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,6 +34,8 @@
     _homePageView = [[ZDIHomePageView alloc] initWithFrame:self.view.frame];
     _homePageView.homePageTableView.delegate = self;
     [self.view addSubview:_homePageView];
+    [self updataHomePageView];
+    
 }
 
 - (void)openCloseMenu: (UIBarButtonItem *)sender
@@ -73,6 +72,18 @@
         _sectionView.sectionLabel.text = serctionString;
         return _sectionView;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    
+    NSString *idNumber;
+    idNumber = [[_dayMutableArray[section] valueForKey:@"stories"][row] valueForKey:@"id"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendIdNumber" object:idNumber];
+    ZDINextViewController *nextViewController = [[ZDINextViewController alloc] init];
+    nextViewController.idNumber = idNumber;
+    [self presentViewController:nextViewController animated:YES completion:nil];
 }
 
 //设置纯色图片
@@ -125,30 +136,22 @@
         self.navigationController.navigationBar.hidden = YES;
     }
     
-//    NSLog(@"%f %lu",scrollView.contentOffset.y,[_homePageView.allJsonModel.stories count] * 90 + 200);
-//    NSLog(@"%f",scrollView.frame.size.height);
-//    NSLog(@"%f",scrollView.contentSize.height);
-    if (scrollView.contentOffset.y + scrollView.frame.size.height >= (([_homePageView.allJsonModel.stories count] * 90 * _dayMutableArray.count) + 200 )) {
-        NSLog(@"111");
-        [UIView commitAnimations];
-        
-        [UIView animateWithDuration:2.0 animations:^{
-            self.homePageView.homePageTableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
-        } completion:^(BOOL finished) {
-            [self updataHomePageView];
-            self.homePageView.homePageTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        }];
+    
+    if (self.homePageView.homePageScrollView.userInteractionEnabled == NO) {
+        return;
+    }
+    if (scrollView.contentOffset.y + [UIScreen mainScreen].bounds.size.height > scrollView.contentSize.height) {
+        self.homePageView.homePageScrollView.userInteractionEnabled = NO;
+        [self updataHomePageView];
+      
     }
 }
 
 - (void)updataHomePageView {
-    self.isLoading = YES;
     if (_days == -1) {
         [[ZDIHomePageManager sharedManager] fetchHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
             self.homePageView.allJsonModel = homaPageModel;
             [self->_dayMutableArray addObject:homaPageModel];
-            NSLog(@"a%li", self->_dayMutableArray.count);
-            self->_days++;
             self.homePageView.number = [self->_dayMutableArray count];
             self->_dataMutableArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < [homaPageModel.top_stories count]; i++) {
@@ -159,6 +162,7 @@
             }
             self->_homePageView.images = self->_dataMutableArray;
             [self->_homePageView.homePageTableView reloadData];
+            self.homePageView.homePageScrollView.userInteractionEnabled = YES;
         } error:^(NSError *error) {
             
         }];
@@ -166,16 +170,15 @@
         [[ZDIHomePageManager sharedManager] fetchDatBeforeHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
             self.homePageView.allJsonModel = homaPageModel;
             [self->_dayMutableArray addObject:homaPageModel];
-            self->_days++;
             self.homePageView.number = [self->_dayMutableArray count];
             [self->_homePageView.homePageTableView reloadData];
+            self.homePageView.homePageScrollView.userInteractionEnabled = YES;
         } error:^(NSError *error) {
             
         }];
     }
-    self.isLoading = NO;
+    _days++;
     
-    NSLog(@"b%li", [_dayMutableArray count]);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
