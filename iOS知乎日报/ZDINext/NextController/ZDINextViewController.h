@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *idNumber;
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) NSMutableArray *dataMutableArray;
-@property (nonatomic, strong) NSString* bodyString;
 @property (nonatomic, strong) ZDINextView *nextView;
+
 @end
 
 NS_ASSUME_NONNULL_END

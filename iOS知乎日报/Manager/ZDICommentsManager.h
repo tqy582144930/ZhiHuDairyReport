@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //返回当天数据
-typedef void(^ZDICommentsData)(NSMutableArray *homaPageModel);
+typedef void(^ZDICommentsData)(ZDICommentsModel *homaPageModel);
 
 // 请求失败统一回调block
 typedef void(^ErrorHandle)(NSError *error);
@@ -22,6 +22,8 @@ typedef void(^ErrorHandle)(NSError *error);
 + (instancetype)sharedManager;
 
 - (void)fetchCommentsDataId:(NSString *)idNumber Succeed:(ZDICommentsData)succeedBlock error:(ErrorHandle)errorBlock;
+
+- (void)fetchShortCommentsDataId:(NSString *)idNumber Succeed:(ZDICommentsData)succeedBlock error:(ErrorHandle)errorBlock;
 
 @end
 

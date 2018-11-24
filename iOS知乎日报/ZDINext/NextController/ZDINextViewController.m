@@ -18,6 +18,10 @@
 
 @implementation ZDINextViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateNextView];
@@ -45,10 +49,11 @@
     [_nextView.fenxiangButton addTarget:self action:@selector(clickFenxiangButton:) forControlEvents:UIControlEventTouchUpInside];
     [_nextView.pinglunButton addTarget:self action:@selector(clickPinglunButton:) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)clickBackButton:(UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)clickXiangxiaButton:(UIButton *)button {
@@ -65,16 +70,16 @@
 
 - (void)clickPinglunButton:(UIButton *)button {
     ZDICommentsViewController *nextView = [[ZDICommentsViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nextView];
-    [self presentViewController:nav animated:YES completion:nil];
+    nextView.idNumber = _idNumber;
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 
 - (void) updateNextView {
     [[ZDINextManger sharedManager] fetchNextDataId:_idNumber Succeed:^(NSMutableArray *homaPageModel) {
         self->_dataMutableArray = [[NSMutableArray alloc] initWithArray:homaPageModel];
-        self->_bodyString = [self->_dataMutableArray valueForKey:@"body"][0];
-        [self->_webView loadHTMLString:self->_bodyString baseURL:nil];
-        self->_webView.autoresizingMask = YES;
+        NSString *urlString = [NSString stringWithFormat:@"https://daily.zhihu.com/story/%@", self->_idNumber];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [self->_webView loadRequest:[NSURLRequest requestWithURL:url]];
     } error:^(NSError * _Nonnull error) {
         
     }];

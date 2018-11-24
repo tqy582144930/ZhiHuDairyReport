@@ -22,18 +22,17 @@ static ZDICommentsManager *manager;
 
 - (void) fetchCommentsDataId:(NSString *)idNumber Succeed:(ZDICommentsData)succeedBlock error:(ErrorHandle)errorBlock {
     NSString *urlSting = [NSString stringWithFormat:@"https://news-at.zhihu.com/api/4/story/%@/long-comments", idNumber];
-    NSLog(@"%@", idNumber);
     NSURL * url = [NSURL URLWithString:urlSting];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSMutableArray *data = [[NSMutableArray alloc] init];
-            [data addObject:dic];
-            NSLog(@"%@", data);
+//            NSLog(@"%@", dic);
             if (error == nil) {
-                succeedBlock(data);
+                ZDICommentsModel *allJSONModel = [[ZDICommentsModel alloc] initWithDictionary:dic error:nil];
+//                NSLog(@"%@", allJSONModel);
+                succeedBlock(allJSONModel);
             } else {
                 errorBlock(error);
             }
@@ -42,4 +41,24 @@ static ZDICommentsManager *manager;
     [dataTask resume];
 }
 
+- (void) fetchShortCommentsDataId:(NSString *)idNumber Succeed:(ZDICommentsData)succeedBlock error:(ErrorHandle)errorBlock {
+    NSString *urlSting = [NSString stringWithFormat:@"https://news-at.zhihu.com/api/4/story/%@/short-comments", idNumber];
+    NSURL * url = [NSURL URLWithString:urlSting];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //            NSLog(@"%@", dic);
+            if (error == nil) {
+                ZDICommentsModel *allJSONModel = [[ZDICommentsModel alloc] initWithDictionary:dic error:nil];
+                //                NSLog(@"%@", allJSONModel);
+                succeedBlock(allJSONModel);
+            } else {
+                errorBlock(error);
+            }
+        });
+    }];
+    [dataTask resume];
+}
 @end

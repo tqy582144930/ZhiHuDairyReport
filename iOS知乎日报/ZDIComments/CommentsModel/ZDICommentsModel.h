@@ -9,9 +9,13 @@
 #import "JSONModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol ZDIReply_toModel
+//@protocol ZDIReply_toModel
+//
+//@end
 
-@end
+//@protocol ZDICommentModel
+//
+//@end
 
 @interface ZDIReply_toModel : JSONModel
 @property (nonatomic, strong) NSString *author;
@@ -20,14 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *id;
 @end
 
-@interface ZDICommentsModel : JSONModel
+@interface ZDICommentModel : JSONModel
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic, strong) NSString *id;
 @property (nonatomic, strong) NSString *likes;
-@property (nonatomic, strong) NSArray <ZDIReply_toModel> *reply_to;
+@property (nonatomic, strong) NSArray <ZDIReply_toModel *> *reply_to;
 @end
+
+@interface ZDICommentsModel : JSONModel
+@property (nonatomic, strong) NSArray <ZDICommentModel *> *comments;
+@end
+
 
 NS_ASSUME_NONNULL_END

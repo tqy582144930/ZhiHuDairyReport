@@ -19,3 +19,9 @@
     return  YES;
 }
 @end
+
+@implementation ZDICommentModel
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return  YES;
+}
+@end

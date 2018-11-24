@@ -50,17 +50,18 @@ static const int imageButtonCount = 3;
             make.top.mas_equalTo(self.mas_top).mas_equalTo(200);
             make.centerX.mas_equalTo(self);
         }];
+        _modelArray = [NSMutableArray array];
     }
     return self;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"c%li", _number);
-    return _number;
+    return [_modelArray count];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_allJsonModel.stories count];
+    ZDITotallJSONModel *model = _modelArray[section];
+    return [model.stories count];
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -68,11 +69,11 @@ static const int imageButtonCount = 3;
     if (cell == nil) {
         cell = [_homePageTableView dequeueReusableCellWithIdentifier:@"pictureCell" forIndexPath:indexPath];
     }
-    cell.titleLabel.text = [_allJsonModel.stories[indexPath.row] title];
+    ZDITotallJSONModel *model = _modelArray[indexPath.section];
+    cell.titleLabel.text = [model.stories[indexPath.row] title];
     
-    NSArray *array = [_allJsonModel.stories[indexPath.row] images];
-    NSString *urlSting = array[0];
-//    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlSting]];
+    NSArray *array = [model.stories[indexPath.row] images];
+    NSURL *urlSting = array[0];
     [cell.titleImageView sd_setImageWithURL:urlSting];
     
     return cell;

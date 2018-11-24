@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *navigitionMutableArray;
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSMutableArray *dataMutableArray;
+@property (nonatomic, strong) NSString *idNumber;
 
 + (UIImage *) creatImageWithColor:(UIColor *)color;
 

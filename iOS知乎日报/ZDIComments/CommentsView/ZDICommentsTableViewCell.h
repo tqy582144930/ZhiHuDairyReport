@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIImageView *headImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIButton *zanButton;
-@property (nonatomic, strong) UITextView *pinglinTextView;
+@property (nonatomic, strong) UILabel *pinglinTextLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @end
 

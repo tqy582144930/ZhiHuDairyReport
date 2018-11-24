@@ -28,7 +28,9 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.barStyle = UIBaselineAdjustmentNone;
-    UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithTitle:@"菜单" style:UIBarButtonItemStylePlain target:self action:@selector(openCloseMenu:)];
+    
+    UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo"] style:UIBarButtonItemStyleDone target:self action:@selector(openCloseMenu:)];
+    menuItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = menuItem;
     
     _homePageView = [[ZDIHomePageView alloc] initWithFrame:self.view.frame];
@@ -68,7 +70,7 @@
         return nil;
     } else {
         _sectionView = [[ZDITableViewSectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64)];
-        NSString *serctionString = [NSString stringWithFormat:@"%lu", section];
+        NSString *serctionString = [NSString stringWithFormat:@"%lu", section + 1];
         _sectionView.sectionLabel.text = serctionString;
         return _sectionView;
     }
@@ -78,12 +80,10 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
-    NSString *idNumber;
-    idNumber = [[_dayMutableArray[section] valueForKey:@"stories"][row] valueForKey:@"id"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendIdNumber" object:idNumber];
+    _idNumber = [[_dayMutableArray[section] valueForKey:@"stories"][row] valueForKey:@"id"];
     ZDINextViewController *nextViewController = [[ZDINextViewController alloc] init];
-    nextViewController.idNumber = idNumber;
-    [self presentViewController:nextViewController animated:YES completion:nil];
+    nextViewController.idNumber = _idNumber;
+    [self.navigationController pushViewController:nextViewController animated:YES];
 }
 
 //设置纯色图片
@@ -126,22 +126,24 @@
 
 //导航栏渐变
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < ([_homePageView.allJsonModel.stories count] * 90 + 200)) {
+    NSLog(@"%f", scrollView.contentOffset.y);
+    
+    if (scrollView.contentOffset.y < ([[_homePageView.modelArray[0] valueForKey:@"stories"] count] * 90 + 220)) {
         self.navigationController.navigationBar.hidden = NO;
         self.navigationItem.title = @"今日热闻";
         UIImage *colorImage = [ZDIHomePageViewController creatImageWithColor:[UIColor colorWithRed:0.24f green:0.78f blue:0.99f alpha:1.00f]];
-        UIImage *colorLastImage = [ZDIHomePageViewController imageByApplyingAlpha:scrollView.contentOffset.y / 200.0 image:colorImage];
+        UIImage *colorLastImage = [ZDIHomePageViewController imageByApplyingAlpha:scrollView.contentOffset.y / 220.0 image:colorImage];
         [self.navigationController.navigationBar setBackgroundImage:colorLastImage forBarMetrics:UIBarMetricsDefault];
     } else {
         self.navigationController.navigationBar.hidden = YES;
     }
     
     
-    if (self.homePageView.homePageScrollView.userInteractionEnabled == NO) {
+    if (self.homePageView.homePageTableView.userInteractionEnabled == NO) {
         return;
     }
     if (scrollView.contentOffset.y + [UIScreen mainScreen].bounds.size.height > scrollView.contentSize.height) {
-        self.homePageView.homePageScrollView.userInteractionEnabled = NO;
+        self.homePageView.homePageTableView.userInteractionEnabled = NO;
         [self updataHomePageView];
       
     }
@@ -150,7 +152,7 @@
 - (void)updataHomePageView {
     if (_days == -1) {
         [[ZDIHomePageManager sharedManager] fetchHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
-            self.homePageView.allJsonModel = homaPageModel;
+            [self.homePageView.modelArray addObject:homaPageModel];
             [self->_dayMutableArray addObject:homaPageModel];
             self.homePageView.number = [self->_dayMutableArray count];
             self->_dataMutableArray = [[NSMutableArray alloc] init];
@@ -162,17 +164,17 @@
             }
             self->_homePageView.images = self->_dataMutableArray;
             [self->_homePageView.homePageTableView reloadData];
-            self.homePageView.homePageScrollView.userInteractionEnabled = YES;
+            self.homePageView.homePageTableView.userInteractionEnabled = YES;
         } error:^(NSError *error) {
             
         }];
     } else {
         [[ZDIHomePageManager sharedManager] fetchDatBeforeHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
-            self.homePageView.allJsonModel = homaPageModel;
+            [self.homePageView.modelArray addObject:homaPageModel];
             [self->_dayMutableArray addObject:homaPageModel];
             self.homePageView.number = [self->_dayMutableArray count];
             [self->_homePageView.homePageTableView reloadData];
-            self.homePageView.homePageScrollView.userInteractionEnabled = YES;
+            self.homePageView.homePageTableView.userInteractionEnabled = YES;
         } error:^(NSError *error) {
             
         }];
@@ -180,6 +182,11 @@
     _days++;
     
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

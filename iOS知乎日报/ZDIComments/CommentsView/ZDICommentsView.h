@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZDICommentsModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDICommentsView : UIView <UITableViewDelegate, UITableViewDataSource>
+@interface ZDICommentsView : UIView <UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *bottonView;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *readButton;
+@property (nonatomic, strong) ZDICommentsModel *allJSONModel;
+@property (nonatomic, strong) ZDICommentsModel *allShortJSONModel;
 
 - (void) commentsViewInit;
+- (NSString *)getTimeFromTimestamp:(double) time;
 
 @end
 

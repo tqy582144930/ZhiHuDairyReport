@@ -64,7 +64,7 @@
     _messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_messageButton setTitle:@"消息" forState:UIControlStateNormal];
     _messageButton.titleLabel.font = [UIFont systemFontOfSize:10];
-    [_messageButton setImage:[UIImage imageNamed:@"message_icon"] forState:UIControlStateNormal];
+    [_messageButton setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
     [self initButton:_messageButton];
     [self addSubview:_messageButton];
     [_messageButton mas_makeConstraints:^(MASConstraintMaker *make) {

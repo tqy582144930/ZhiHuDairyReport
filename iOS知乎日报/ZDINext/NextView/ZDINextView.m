@@ -2,7 +2,7 @@
 //  ZDINextView.m
 //  iOS知乎日报
 //
-//  Created by 涂强尧 on 2018/11/18.
+//  Created by 涂强尧 on 2018/11/24.
 //  Copyright © 2018 涂强尧. All rights reserved.
 //
 
@@ -11,8 +11,7 @@
 
 @implementation ZDINextView
 
-- (void)nextViewInit {
-    self.backgroundColor = [UIColor whiteColor];
+- (void) nextViewInit{
     
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setImage:[UIImage imageNamed:@"2fanhui"] forState:UIControlStateNormal];
@@ -59,7 +58,6 @@
         make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width/5, 50));
     }];
 }
-    
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

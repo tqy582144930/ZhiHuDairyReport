@@ -14,43 +14,79 @@
 
 @end
 
-@implementation ZDICommentsViewController 
+@implementation ZDICommentsViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self updateCommentsView];
+    self.navigationController.navigationBar.hidden = NO;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"37条点评";
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.00f green:0.64f blue:0.93f alpha:1.00f];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"点评";
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0.00f green:0.64f blue:0.93f alpha:1.00f];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationItem.hidesBackButton = YES;
+    
     _commentsView = [[ZDICommentsView alloc] initWithFrame:self.view.bounds];
     [_commentsView commentsViewInit];
     [self.view addSubview:_commentsView];
     _commentsView.tableView.delegate = self;
+    [_commentsView.backButton addTarget:self action:@selector(backToNextView) forControlEvents:UIControlEventTouchUpInside];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendFinished:) name:@"sendIdNumber" object:nil];
-//    NSLog(@"%@", _idNumber);
-//    [self updateCommentsView];
+    _cellHeightMutableArray = [[NSMutableArray alloc] init];
+    _cell1HeightMutableArray = [[NSMutableArray alloc] init];
+    _allCellHeightMutableArray = [[NSMutableArray alloc] init];
+
+}
+
+- (void)backToNextView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updateCommentsView {
-    [[ZDICommentsManager sharedManager] fetchCommentsDataId:_idNumber Succeed:^(NSMutableArray * _Nonnull homaPageModel){
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [array addObject:homaPageModel];
-        NSLog(@"%@", homaPageModel);
-
+    [[ZDICommentsManager sharedManager] fetchCommentsDataId:_idNumber Succeed:^(ZDICommentsModel * _Nonnull homaPageModel){
+        self->_commentsView.allJSONModel = homaPageModel;
+        NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
+        for (NSString *cellString in [self->_commentsView.allJSONModel.comments valueForKey:@"content"]) {
+            CGRect tmpRect = [cellString boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+            CGFloat nameH = tmpRect.size.height + 80;
+            [self->_cellHeightMutableArray addObject:@(nameH)];
+        }
+        [self->_allCellHeightMutableArray addObject:self->_cellHeightMutableArray];
+        [self->_commentsView.tableView reloadData];
     } error:^(NSError * _Nonnull error) {
 
     }];
+    
+    [[ZDICommentsManager sharedManager] fetchShortCommentsDataId:_idNumber Succeed:^(ZDICommentsModel * _Nonnull homaPageModel) {
+        self->_commentsView.allShortJSONModel = homaPageModel;
+        NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
+        for (NSString *cellString1 in [self->_commentsView.allShortJSONModel.comments valueForKey:@"content"]) {
+            CGRect tmpRect1 = [cellString1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 100, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+            CGFloat nameH1 = tmpRect1.size.height + 80;
+            [self->_cell1HeightMutableArray addObject:@(nameH1)];
+        }
+        [self->_allCellHeightMutableArray addObject:self->_cell1HeightMutableArray];
+        [self->_commentsView.tableView reloadData];
+    } error:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
-- (void) sendFinished:(NSNotification *) notifaction {
-    NSLog(@"%@", notifaction);
-    
-}
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 260;
+    return [_allCellHeightMutableArray[indexPath.section][indexPath.row] integerValue];
 }
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
+}
+
 
 /*
 #pragma mark - Navigation

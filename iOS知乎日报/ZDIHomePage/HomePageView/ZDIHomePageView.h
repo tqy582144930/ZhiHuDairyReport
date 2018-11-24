@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) UIScrollView *homePageScrollView;
 @property (nonatomic, strong) UITableView *homePageTableView;
-@property (nonatomic, strong) ZDITotallJSONModel *allJsonModel;
+@property (nonatomic, strong) NSMutableArray *modelArray;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *lables;
 @property (nonatomic, strong) UIPageControl *homePageController;
