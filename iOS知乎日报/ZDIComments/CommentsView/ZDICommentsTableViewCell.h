@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *zanButton;
 @property (nonatomic, strong) UILabel *pinglinTextLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *replyLabel;
 @end
 
 NS_ASSUME_NONNULL_END

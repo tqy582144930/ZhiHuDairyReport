@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *cell1HeightMutableArray;
 @property (nonatomic, strong) NSMutableArray *allCellHeightMutableArray;
 @property (nonatomic, strong) NSString *count;
+@property (nonatomic, assign) NSInteger flag;
+@property (nonatomic, strong) UIButton *clickedButton;
 @end
 
 NS_ASSUME_NONNULL_END

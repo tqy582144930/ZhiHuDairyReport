@@ -36,7 +36,7 @@
         
         _zanButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_zanButton setImage:[UIImage imageNamed:@"zan1"] forState:UIControlStateNormal];
-        [_zanButton setTitle:@"1" forState:UIControlStateNormal];
+        _zanButton.tintColor = [UIColor blackColor];
         [_zanButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         [self.contentView addSubview:_zanButton];
@@ -57,16 +57,26 @@
 
         }];
         
+        _replyLabel = [[UILabel alloc] init];
+        [self.contentView addSubview:_replyLabel];
+        _replyLabel.numberOfLines = 0;
+        _replyLabel.font = [UIFont systemFontOfSize:18];
+        [_replyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.pinglinTextLabel.mas_bottom).mas_equalTo(5);
+            make.left.mas_equalTo(65);
+            make.right.mas_equalTo(-15);
+            
+        }];
+        
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.numberOfLines = 0;
         _timeLabel.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:_timeLabel];
         [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self->_pinglinTextLabel.mas_bottom).mas_equalTo(10);
+            make.top.mas_equalTo(self->_replyLabel.mas_bottom).mas_equalTo(10);
             make.left.mas_equalTo(65);
             make.height.mas_equalTo(20);
             make.width.mas_equalTo(100);
-//            make.bottom.mas_equalTo(-10);
         }];
     }
     return self;

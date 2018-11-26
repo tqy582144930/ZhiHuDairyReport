@@ -28,8 +28,9 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.barStyle = UIBaselineAdjustmentNone;
+
     
-    UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo"] style:UIBarButtonItemStyleDone target:self action:@selector(openCloseMenu:)];
+    UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo-"] style:UIBarButtonItemStyleDone target:self action:@selector(openCloseMenu:)];
     menuItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = menuItem;
     

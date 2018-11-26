@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *readButton;
 @property (nonatomic, strong) ZDICommentsModel *allJSONModel;
 @property (nonatomic, strong) ZDICommentsModel *allShortJSONModel;
+@property (nonatomic, assign) NSInteger flag;
 
 - (void) commentsViewInit;
-- (NSString *)getTimeFromTimestamp:(double) time;
 
 @end
 

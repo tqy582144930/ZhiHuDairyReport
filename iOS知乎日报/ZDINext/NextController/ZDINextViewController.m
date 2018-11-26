@@ -71,7 +71,9 @@
 - (void)clickPinglunButton:(UIButton *)button {
     ZDICommentsViewController *nextView = [[ZDICommentsViewController alloc] init];
     nextView.idNumber = _idNumber;
-    [self.navigationController pushViewController:nextView animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nextView];
+    [self presentViewController:nav animated:YES completion:nil];
+//    [self.navigationController pushViewController:nav animated:YES];
 }
 
 - (void) updateNextView {
