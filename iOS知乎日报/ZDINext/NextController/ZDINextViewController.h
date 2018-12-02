@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) NSMutableArray *dataMutableArray;
 @property (nonatomic, strong) ZDINextView *nextView;
+@property (nonatomic, strong) NSMutableArray *allIdnumberMutableArray;
+@property (nonatomic, assign) NSInteger section;
+@property (nonatomic, assign) NSInteger row;
 
 @end
 

@@ -77,7 +77,16 @@
         cell.nameLabel.text = [_allJSONModel.comments[indexPath.row] valueForKey:@"author"];
         [cell.zanButton setTitle:[NSString stringWithFormat:@"%@", [_allJSONModel.comments[indexPath.row] valueForKey:@"likes"]] forState:UIControlStateNormal];
         cell.pinglinTextLabel.text = [_allJSONModel.comments[indexPath.row] valueForKey:@"content"];
-        cell.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", [[_allJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"author"], [[_allJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"content"]];
+        
+        NSString *replyContentString = [[_allJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"content"];
+        NSString *replyAuthorString = [[_allJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"author"];
+        if (![replyAuthorString isKindOfClass:[NSString class]]) {
+            cell.replyLabel.text = @"";
+            cell.unfoldButton.hidden = YES;
+        } else {
+            cell.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", replyAuthorString, replyContentString];
+            cell.unfoldButton.hidden = NO;
+        }
         
         double time = [[_allJSONModel.comments[indexPath.row] valueForKey:@"time"] doubleValue];
         NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:time];
@@ -101,7 +110,18 @@
         cell1.nameLabel.text = [_allShortJSONModel.comments[indexPath.row] valueForKey:@"author"];
         [cell1.zanButton setTitle:[NSString stringWithFormat:@"%@",[_allShortJSONModel.comments[indexPath.row] valueForKey:@"likes"]]  forState:UIControlStateNormal];
         cell1.pinglinTextLabel.text = [_allShortJSONModel.comments[indexPath.row] valueForKey:@"content"];
-        cell1.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"author"], [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"content"]];
+        
+        NSString *replyContentString = [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"content"];
+        NSString *replyAuthorString = [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"author"];
+        
+        if (![replyAuthorString isKindOfClass:[NSString class]]) {
+            cell1.replyLabel.text = @"";
+            cell1.unfoldButton.hidden = YES;
+        } else {
+            cell1.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", replyAuthorString, replyContentString];
+            cell1.unfoldButton.hidden = NO;
+        }
+        
         double time = [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"time"] doubleValue];
         NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:time];
         //设置时间格式
@@ -121,28 +141,11 @@
         } else {
             cell1.hidden = YES;
         }
+       
         return cell1;
     }
     
 }
-//        self.contentController.view.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width/2, 0);
-//        self.menuViewController.view.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width/2, 0);
-//    }else {
-//        self.contentController.view.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width/2, 0);
-//        self.menuViewController.view.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width/2, 0);
-//    }
-//}completion:^(BOOL finished) {
-//    self->_isMenuOpen = !self->_isMenuOpen;
-//    [self setContentController:self.viewControllers[self.controllerIndex]];
-//    if (!self->_isMenuOpen) {
-//        [UIView animateWithDuration:0.2 delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            self.contentController.view.transform = CGAffineTransformIdentity;
-//            self.menuViewController.view.transform = CGAffineTransformIdentity;
-//        } completion:^(BOOL finished) {
-//            self->_isAnimating = NO;
-//        }];
-//    }else {
-//        self->_isAnimating = NO;
-//    }
-//}];
+
+
 @end

@@ -23,6 +23,7 @@
     // Do any additional setup after loading the view.
     self.days = -1;
     _dayMutableArray = [NSMutableArray new];
+    _allIdNumberMutableArray = [NSMutableArray new];
     self.navigationItem.title = @"今日热闻";
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
@@ -84,7 +85,10 @@
     _idNumber = [[_dayMutableArray[section] valueForKey:@"stories"][row] valueForKey:@"id"];
     ZDINextViewController *nextViewController = [[ZDINextViewController alloc] init];
     nextViewController.idNumber = _idNumber;
-    [self.navigationController pushViewController:nextViewController animated:YES];
+    nextViewController.section = section;
+    nextViewController.row = row;
+    nextViewController.allIdnumberMutableArray = [NSMutableArray arrayWithArray:_allIdNumberMutableArray];
+    [self.navigationController pushViewController:nextViewController animated:NO];
 }
 
 //设置纯色图片
@@ -127,7 +131,7 @@
 
 //导航栏渐变
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%f", scrollView.contentOffset.y);
+//    NSLog(@"%f", scrollView.contentOffset.y);
     
     if (scrollView.contentOffset.y < ([[_homePageView.modelArray[0] valueForKey:@"stories"] count] * 90 + 220)) {
         self.navigationController.navigationBar.hidden = NO;
@@ -155,7 +159,14 @@
         [[ZDIHomePageManager sharedManager] fetchHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
             [self.homePageView.modelArray addObject:homaPageModel];
             [self->_dayMutableArray addObject:homaPageModel];
-            self.homePageView.number = [self->_dayMutableArray count];
+            
+            NSMutableArray *sectionIdMutableArray = [[NSMutableArray alloc] init];
+            for (int i = 0 ; i < [homaPageModel.stories count]; i++) {
+                NSString *idString = [[homaPageModel valueForKey:@"stories"][i] valueForKey:@"id"];
+                [sectionIdMutableArray addObject:idString];
+            }
+            [self->_allIdNumberMutableArray addObject:sectionIdMutableArray];
+            
             self->_dataMutableArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < [homaPageModel.top_stories count]; i++) {
                 NSString *string = [NSString stringWithString:[homaPageModel.top_stories[i] imageStr]];
@@ -164,6 +175,7 @@
                 [self->_dataMutableArray addObject:result];
             }
             self->_homePageView.images = self->_dataMutableArray;
+        
             [self->_homePageView.homePageTableView reloadData];
             self.homePageView.homePageTableView.userInteractionEnabled = YES;
         } error:^(NSError *error) {
@@ -173,7 +185,14 @@
         [[ZDIHomePageManager sharedManager] fetchDatBeforeHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
             [self.homePageView.modelArray addObject:homaPageModel];
             [self->_dayMutableArray addObject:homaPageModel];
-            self.homePageView.number = [self->_dayMutableArray count];
+            
+            NSMutableArray *sectionIdMutableArray = [[NSMutableArray alloc] init];
+            for (int i = 0 ; i < [homaPageModel.stories count]; i++) {
+                NSString *idString = [[homaPageModel valueForKey:@"stories"][i] valueForKey:@"id"];
+                [sectionIdMutableArray addObject:idString];
+            }
+            [self->_allIdNumberMutableArray addObject:sectionIdMutableArray];
+            
             [self->_homePageView.homePageTableView reloadData];
             self.homePageView.homePageTableView.userInteractionEnabled = YES;
         } error:^(NSError *error) {

@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *pinglinTextLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *replyLabel;
+@property (nonatomic, strong) UIButton *unfoldButton;
+@property (nonatomic, assign) NSInteger sign;
+
 @end
 
 NS_ASSUME_NONNULL_END

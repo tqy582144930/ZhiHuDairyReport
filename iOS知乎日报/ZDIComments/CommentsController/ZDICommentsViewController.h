@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *count;
 @property (nonatomic, assign) NSInteger flag;
 @property (nonatomic, strong) UIButton *clickedButton;
+@property (nonatomic, assign) NSInteger sign;
 @end
 
 NS_ASSUME_NONNULL_END

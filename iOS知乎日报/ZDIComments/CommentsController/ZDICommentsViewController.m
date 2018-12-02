@@ -44,6 +44,8 @@
     [_clickedButton setImage:[UIImage imageNamed:@"xiangxia"] forState:UIControlStateNormal];
     [_clickedButton setImage:[UIImage imageNamed:@"xiangshang"] forState:UIControlStateSelected];
     _flag = 0;
+   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendSign:) name:@"sendSign" object:nil];
 }
 
 - (void)backToNextView {
@@ -57,15 +59,15 @@
         CGFloat nameH1 = 0.0, nameH2 = 0.0;
         for (int i = 0; i < [self->_commentsView.allJSONModel.comments count]; i++) {
             NSString *string1 = [self->_commentsView.allJSONModel.comments valueForKey:@"content"][i];
-            CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-            nameH1 = tmpRect1.size.height + 105;
-            
-            NSString *string2 = [[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i];
+            CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+            nameH1 = tmpRect1.size.height + 85;
+
+            NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
             if (![string2 isKindOfClass:[NSString class]]) {
                 nameH2 = 0.0;
             } else {
-                CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-                nameH2 = tmpRect2.size.height;
+                nameH2= 53.3333;
+             
             }
             [self->_cellHeightMutableArray addObject:@(nameH1 + nameH2)];
         }
@@ -81,19 +83,19 @@
         NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
         for (int i = 0; i < [self->_commentsView.allShortJSONModel.comments count]; i++) {
             NSString *string1 = [self->_commentsView.allShortJSONModel.comments valueForKey:@"content"][i];
-            CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-            nameH1 = tmpRect1.size.height + 105;
+            CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+            nameH1 = tmpRect1.size.height + 85;
             
-            NSString *string2 = [[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i];
+            NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
             if (![string2 isKindOfClass:[NSString class]]) {
                 nameH2 = 0.0;
             } else {
-                CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-                nameH2 = tmpRect2.size.height;
+                nameH2= 53.3333;
             }
             [self->_cell1HeightMutableArray addObject:@(nameH1 + nameH2)];
         }
         [self->_allCellHeightMutableArray addObject:self->_cell1HeightMutableArray];
+        NSLog(@"aaa%@", self->_allCellHeightMutableArray);
         [self->_commentsView.tableView reloadData];
     } error:^(NSError * _Nonnull error) {
         
@@ -148,22 +150,70 @@
         count+= [_cellHeightMutableArray[i] doubleValue];
     }
 
-    if (_flag == 1) {
-        _commentsView.tableView.contentOffset = CGPointMake(0, -count);
-    } else {
-        _commentsView.tableView.contentOffset = CGPointMake(0, count);
-    }
+//    if (_flag == 1) {
+//        _commentsView.tableView.contentOffset = CGPointMake(0, -count);
+//    }else {
+//        _commentsView.tableView.contentOffset = CGPointMake(0, count);
+//    }
     [_commentsView.tableView reloadData];
 }
 
-/*
-#pragma mark - Navigation
+- (void)sendSign:(NSNotification *) notification {
+    _sign = [notification.object longLongValue];
+    NSLog(@"%lu", _sign);
+    
+    [_allCellHeightMutableArray removeAllObjects];
+    [_cellHeightMutableArray removeAllObjects];
+    [_cell1HeightMutableArray removeAllObjects];
+    
+    NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
+    CGFloat nameH1 = 0.0, nameH2 = 0.0;
+    for (int i = 0; i < [_commentsView.allJSONModel.comments count]; i++) {
+        NSString *string1 = [_commentsView.allJSONModel.comments valueForKey:@"content"][i];
+        CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH1 = tmpRect1.size.height + 85;
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
+        if (![string2 isKindOfClass:[NSString class]]) {
+            nameH2 = 0.0;
+        } else {
+            if (_sign == 1) {
+                CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+                nameH2 = tmpRect2.size.height;
+            } else {
+                nameH2= 53.3333;
+            }
+        }
+        [_cellHeightMutableArray addObject:@(nameH1 + nameH2)];
+    }
+    [_allCellHeightMutableArray addObject:_cellHeightMutableArray];
+
+    for (int i = 0; i < [_commentsView.allShortJSONModel.comments count]; i++) {
+        NSString *string1 = [_commentsView.allShortJSONModel.comments valueForKey:@"content"][i];
+        CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH1 = tmpRect1.size.height + 85;
+
+
+        NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
+        if (![string2 isKindOfClass:[NSString class]]) {
+            nameH2 = 0.0;
+        } else {
+            if (_sign == 1) {
+                CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+                nameH2 = tmpRect2.size.height;
+            }else {
+                nameH2= 53.3333;
+            }
+        }
+        [_cell1HeightMutableArray addObject:@(nameH1 + nameH2)];
+    }
+    [_allCellHeightMutableArray addObject:_cell1HeightMutableArray];
+    NSLog(@"ccc%@", _allCellHeightMutableArray);
+
+    [_commentsView.tableView beginUpdates];
+    [_commentsView.tableView endUpdates];
+
 }
-*/
+
 
 @end

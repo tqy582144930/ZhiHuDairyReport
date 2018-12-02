@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self updateNextView];
     self.view.backgroundColor = [UIColor whiteColor];
     _webView = [[WKWebView alloc] init];
     [self.view addSubview:_webView];
@@ -33,15 +32,18 @@
         make.left.mas_equalTo(0);
         make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 50));
     }];
+    NSString *urlString = [NSString stringWithFormat:@"https://daily.zhihu.com/story/%@", _idNumber];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [self->_webView loadRequest:[NSURLRequest requestWithURL:url]];
     
     _nextView = [[ZDINextView alloc] init];
-    [_nextView nextViewInit];
     [self.view addSubview:_nextView];
     [_nextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(0);
+        make.bottom.equalTo(self.view);
         make.left.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width, 50));
+        make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width, 50.0));
     }];
+    [_nextView nextViewInit];
     
     [_nextView.backButton addTarget:self action:@selector(clickBackButton:) forControlEvents:UIControlEventTouchUpInside];
     [_nextView.xiangxiaButton addTarget:self action:@selector(clickXiangxiaButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -50,6 +52,7 @@
     [_nextView.pinglunButton addTarget:self action:@selector(clickPinglunButton:) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
     
+    NSLog(@"aaa%@", _allIdnumberMutableArray);
 }
 
 - (void)clickBackButton:(UIButton *)button {
@@ -57,7 +60,15 @@
 }
 
 - (void)clickXiangxiaButton:(UIButton *)button {
-    
+    _row++;
+    NSArray *array = [NSMutableArray arrayWithArray:_allIdnumberMutableArray[_section]];
+    if (_row > [array count] - 1) {
+        _row = 0;
+        _section++;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"https://daily.zhihu.com/story/%@", _allIdnumberMutableArray[_section][_row]];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [self->_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)clickDianzanButton:(UIButton *)button {
@@ -70,21 +81,15 @@
 
 - (void)clickPinglunButton:(UIButton *)button {
     ZDICommentsViewController *nextView = [[ZDICommentsViewController alloc] init];
-    nextView.idNumber = _idNumber;
+    NSString *idNumberString = [[NSString alloc] init];
+    idNumberString = _allIdnumberMutableArray[_section][_row];
+    nextView.idNumber = idNumberString;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nextView];
     [self presentViewController:nav animated:YES completion:nil];
-//    [self.navigationController pushViewController:nav animated:YES];
 }
 
-- (void) updateNextView {
-    [[ZDINextManger sharedManager] fetchNextDataId:_idNumber Succeed:^(NSMutableArray *homaPageModel) {
-        self->_dataMutableArray = [[NSMutableArray alloc] initWithArray:homaPageModel];
-        NSString *urlString = [NSString stringWithFormat:@"https://daily.zhihu.com/story/%@", self->_idNumber];
-        NSURL *url = [NSURL URLWithString:urlString];
-        [self->_webView loadRequest:[NSURLRequest requestWithURL:url]];
-    } error:^(NSError * _Nonnull error) {
-        
-    }];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
 }
 
 /*

@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UIColor *currentPageColor;
 @property (nonatomic, strong) UIColor *pageColor;
-@property (nonatomic, assign) NSInteger number;
 //是否竖向滚动
 @property (nonatomic, assign, getter=isScrollDorectionPortrait) BOOL scrollDorectionPortrait;
 

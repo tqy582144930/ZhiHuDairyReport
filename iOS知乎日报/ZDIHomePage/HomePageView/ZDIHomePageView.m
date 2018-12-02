@@ -76,6 +76,7 @@ static const int imageButtonCount = 3;
     NSURL *urlSting = array[0];
     [cell.titleImageView sd_setImageWithURL:urlSting];
     
+    
     return cell;
 }
 

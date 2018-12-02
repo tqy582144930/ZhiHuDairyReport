@@ -59,13 +59,13 @@
         
         _replyLabel = [[UILabel alloc] init];
         [self.contentView addSubview:_replyLabel];
-        _replyLabel.numberOfLines = 0;
+        _replyLabel.numberOfLines = 2;
         _replyLabel.font = [UIFont systemFontOfSize:18];
+        _replyLabel.textColor = [UIColor grayColor];
         [_replyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.pinglinTextLabel.mas_bottom).mas_equalTo(5);
             make.left.mas_equalTo(65);
             make.right.mas_equalTo(-15);
-            
         }];
         
         _timeLabel = [[UILabel alloc] init];
@@ -78,8 +78,35 @@
             make.height.mas_equalTo(20);
             make.width.mas_equalTo(100);
         }];
+        
+        _unfoldButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_unfoldButton setTitle:@"展开" forState:UIControlStateNormal];
+        [_unfoldButton setTitle:@"收起" forState:UIControlStateSelected];
+        _unfoldButton.backgroundColor = [UIColor colorWithRed:0.85f green:0.89f blue:0.95f alpha:1.00f];
+        [_unfoldButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_unfoldButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
+        [self.contentView addSubview:_unfoldButton];
+        [_unfoldButton addTarget:self action:@selector(unfoldButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_unfoldButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self->_replyLabel.mas_bottom).mas_equalTo(10);
+            make.right.mas_equalTo(-15);
+            make.size.mas_equalTo(CGSizeMake(60, 20));
+        }];
+        
     }
     return self;
+}
+
+- (void) unfoldButton:(UIButton *)button {
+    button.selected = !button.selected;
+    if (button.selected) {
+        _replyLabel.numberOfLines = 0;
+        _sign = 1;
+    } else {
+        _replyLabel.numberOfLines = 2;
+        _sign = 0;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendSign" object:@(_sign)];
 }
 
 - (void)awakeFromNib {
