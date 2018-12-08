@@ -42,8 +42,7 @@
     
 }
 
-- (void)openCloseMenu: (UIBarButtonItem *)sender
-{
+- (void)openCloseMenu: (UIBarButtonItem *)sender {
     [self.navigationController.parentViewController performSelector:@selector(openCloseMenu)];
 }
 
@@ -55,7 +54,7 @@
     if (section == 0) {
         return 0;
     } else {
-        return 64;
+        return 50;
     }
 }
 
@@ -71,7 +70,7 @@
     if (section == 0) {
         return nil;
     } else {
-        _sectionView = [[ZDITableViewSectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64)];
+        _sectionView = [[ZDITableViewSectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50)];
         NSString *serctionString = [NSString stringWithFormat:@"%lu", section + 1];
         _sectionView.sectionLabel.text = serctionString;
         return _sectionView;
@@ -136,25 +135,24 @@
     if (scrollView.contentOffset.y < ([[_homePageView.modelArray[0] valueForKey:@"stories"] count] * 90 + 220)) {
         self.navigationController.navigationBar.hidden = NO;
         self.navigationItem.title = @"今日热闻";
-        UIImage *colorImage = [ZDIHomePageViewController creatImageWithColor:[UIColor colorWithRed:0.24f green:0.78f blue:0.99f alpha:1.00f]];
+        UIImage *colorImage = [ZDIHomePageViewController creatImageWithColor:[UIColor colorWithRed:0.02f green:0.56f blue:0.84f alpha:1.00f]];
         UIImage *colorLastImage = [ZDIHomePageViewController imageByApplyingAlpha:scrollView.contentOffset.y / 220.0 image:colorImage];
         [self.navigationController.navigationBar setBackgroundImage:colorLastImage forBarMetrics:UIBarMetricsDefault];
     } else {
         self.navigationController.navigationBar.hidden = YES;
     }
     
-    
-    if (self.homePageView.homePageTableView.userInteractionEnabled == NO) {
-        return;
-    }
     if (scrollView.contentOffset.y + [UIScreen mainScreen].bounds.size.height > scrollView.contentSize.height) {
-        self.homePageView.homePageTableView.userInteractionEnabled = NO;
-        [self updataHomePageView];
-      
+        if (self.isLoading) {
+            return;
+        } else {
+            [self updataHomePageView];
+        }
     }
 }
 
 - (void)updataHomePageView {
+    self.isLoading = YES;
     if (_days == -1) {
         [[ZDIHomePageManager sharedManager] fetchHomePageDataDay:self.days Succeed:^(ZDITotallJSONModel *homaPageModel) {
             [self.homePageView.modelArray addObject:homaPageModel];
@@ -168,16 +166,20 @@
             [self->_allIdNumberMutableArray addObject:sectionIdMutableArray];
             
             self->_dataMutableArray = [[NSMutableArray alloc] init];
+            self->_titleMutableArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < [homaPageModel.top_stories count]; i++) {
                 NSString *string = [NSString stringWithString:[homaPageModel.top_stories[i] imageStr]];
+                NSString *titleString = [NSString stringWithString:[homaPageModel.top_stories[i] title]];
                 NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:string]];
                 UIImage *result = [UIImage imageWithData: data];
                 [self->_dataMutableArray addObject:result];
+                [self->_titleMutableArray addObject:titleString];
             }
             self->_homePageView.images = self->_dataMutableArray;
-        
+            self->_homePageView.titles = [NSMutableArray arrayWithArray:self->_titleMutableArray];
+
             [self->_homePageView.homePageTableView reloadData];
-            self.homePageView.homePageTableView.userInteractionEnabled = YES;
+            self.isLoading = NO;
         } error:^(NSError *error) {
             
         }];
@@ -194,7 +196,7 @@
             [self->_allIdNumberMutableArray addObject:sectionIdMutableArray];
             
             [self->_homePageView.homePageTableView reloadData];
-            self.homePageView.homePageTableView.userInteractionEnabled = YES;
+            self.isLoading = NO;
         } error:^(NSError *error) {
             
         }];

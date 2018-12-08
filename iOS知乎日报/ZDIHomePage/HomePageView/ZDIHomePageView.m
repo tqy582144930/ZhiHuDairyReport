@@ -129,8 +129,9 @@ static const int imageButtonCount = 3;
     _homePageController.pageIndicatorTintColor = pageColor;
 }
 //根据传入的图片数组设置图片
-- (void)setImages:(NSArray *)images  {
+- (void)setImages:(NSArray *)images {
     _images = images;
+    NSLog(@"images = %@, titles = %@",images, _titles);
     //pageControl的页数就是图片的个数
     _homePageController.numberOfPages = images.count;
     //默认一开始显示的是第0页
@@ -139,7 +140,7 @@ static const int imageButtonCount = 3;
     [self setContent];
     //开启定时器
     [self startTimer];
-    
+   
 }
 //设置显示内容
 - (void)setContent {
@@ -165,6 +166,8 @@ static const int imageButtonCount = 3;
         //用上面处理好的索引给imageBtn设置图片
         [imageBtn setBackgroundImage:self.images[index] forState:UIControlStateNormal];
         [imageBtn setBackgroundImage:self.images[index] forState:UIControlStateHighlighted];
+        [imageBtn setTitle:self.titles[index]forState:UIControlStateNormal];
+        [imageBtn setTitle:self.titles[index]forState:UIControlStateHighlighted];
     }
 }
 //状态改变之后更新显示内容

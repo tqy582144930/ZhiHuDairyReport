@@ -13,7 +13,7 @@
 #import "ZDICommentsViewController.h"
 
 @interface ZDINextViewController ()
-
+@property(nonatomic, assign) BOOL isLoading;
 @end
 
 @implementation ZDINextViewController
@@ -34,6 +34,7 @@
     }];
     NSString *urlString = [NSString stringWithFormat:@"https://daily.zhihu.com/story/%@", _idNumber];
     NSURL *url = [NSURL URLWithString:urlString];
+    _webView.scrollView.delegate = self;
     [self->_webView loadRequest:[NSURLRequest requestWithURL:url]];
     
     _nextView = [[ZDINextView alloc] init];
@@ -51,8 +52,7 @@
     [_nextView.fenxiangButton addTarget:self action:@selector(clickFenxiangButton:) forControlEvents:UIControlEventTouchUpInside];
     [_nextView.pinglunButton addTarget:self action:@selector(clickPinglunButton:) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
-    
-    NSLog(@"aaa%@", _allIdnumberMutableArray);
+  
 }
 
 - (void)clickBackButton:(UIButton *)button {
@@ -89,17 +89,32 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+    if (scrollView.contentOffset.y + [UIScreen mainScreen].bounds.size.height - 50 > scrollView.contentSize.height && scrollView.contentSize.height != 0 ) {
+        if (self.isLoading) {
+            return;
+        } else {
+            [self updateWkWebView];
+        }
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)updateWkWebView {
+    self.isLoading = YES;
+    _row++;
+    NSArray *array = [NSMutableArray arrayWithArray:_allIdnumberMutableArray[_section]];
+    if (_row > [array count] - 1) {
+        _row = 0;
+        _section++;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"https://daily.zhihu.com/story/%@", _allIdnumberMutableArray[_section][_row]];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [self->_webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [self->_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
 }
-*/
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if (self.webView.estimatedProgress == 1) {
+        self.isLoading = NO;
+    }
+}
 @end

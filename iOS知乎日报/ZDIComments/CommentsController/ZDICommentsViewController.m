@@ -11,7 +11,7 @@
 #import "ZDICommentsManager.h"
 #import <Masonry.h>
 
-@interface ZDICommentsViewController () <UITableViewDelegate>
+@interface ZDICommentsViewController () <UITableViewDelegate, ZDICommentsTableViewDelegate>
 
 @end
 
@@ -39,13 +39,17 @@
     _cellHeightMutableArray = [[NSMutableArray alloc] init];
     _cell1HeightMutableArray = [[NSMutableArray alloc] init];
     _allCellHeightMutableArray = [[NSMutableArray alloc] init];
+    _isSelectedMutableArray = [[NSMutableArray alloc] init];
     
     _clickedButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_clickedButton setImage:[UIImage imageNamed:@"xiangxia"] forState:UIControlStateNormal];
     [_clickedButton setImage:[UIImage imageNamed:@"xiangshang"] forState:UIControlStateSelected];
     _flag = 0;
    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendSign:) name:@"sendSign" object:nil];
+    [self setIsSelectedMutbaleArray];
+
+    self.commentsView.delegate = self;
+    _commentsView.isSelectedMutableArray = _isSelectedMutableArray;
 }
 
 - (void)backToNextView {
@@ -55,23 +59,7 @@
 - (void)updateCommentsView {
     [[ZDICommentsManager sharedManager] fetchCommentsDataId:_idNumber Succeed:^(ZDICommentsModel * _Nonnull homaPageModel){
         self->_commentsView.allJSONModel = homaPageModel;
-        NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
-        CGFloat nameH1 = 0.0, nameH2 = 0.0;
-        for (int i = 0; i < [self->_commentsView.allJSONModel.comments count]; i++) {
-            NSString *string1 = [self->_commentsView.allJSONModel.comments valueForKey:@"content"][i];
-            CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-            nameH1 = tmpRect1.size.height + 85;
-
-            NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
-            if (![string2 isKindOfClass:[NSString class]]) {
-                nameH2 = 0.0;
-            } else {
-                nameH2= 53.3333;
-             
-            }
-            [self->_cellHeightMutableArray addObject:@(nameH1 + nameH2)];
-        }
-        [self->_allCellHeightMutableArray addObject:self->_cellHeightMutableArray];
+        [self calculateLongCellHeight];
         [self->_commentsView.tableView reloadData];
     } error:^(NSError * _Nonnull error) {
 
@@ -79,23 +67,7 @@
     
     [[ZDICommentsManager sharedManager] fetchShortCommentsDataId:_idNumber Succeed:^(ZDICommentsModel * _Nonnull homaPageModel) {
         self->_commentsView.allShortJSONModel = homaPageModel;
-        CGFloat nameH1 = 0.0, nameH2 = 0.0;
-        NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
-        for (int i = 0; i < [self->_commentsView.allShortJSONModel.comments count]; i++) {
-            NSString *string1 = [self->_commentsView.allShortJSONModel.comments valueForKey:@"content"][i];
-            CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-            nameH1 = tmpRect1.size.height + 85;
-            
-            NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
-            if (![string2 isKindOfClass:[NSString class]]) {
-                nameH2 = 0.0;
-            } else {
-                nameH2= 53.3333;
-            }
-            [self->_cell1HeightMutableArray addObject:@(nameH1 + nameH2)];
-        }
-        [self->_allCellHeightMutableArray addObject:self->_cell1HeightMutableArray];
-        NSLog(@"aaa%@", self->_allCellHeightMutableArray);
+        [self calculateShortCellHeight];
         [self->_commentsView.tableView reloadData];
     } error:^(NSError * _Nonnull error) {
         
@@ -106,7 +78,6 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [_allCellHeightMutableArray[indexPath.section][indexPath.row] integerValue];
 }
-
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 40;
@@ -158,62 +129,119 @@
     [_commentsView.tableView reloadData];
 }
 
-- (void)sendSign:(NSNotification *) notification {
-    _sign = [notification.object longLongValue];
-    NSLog(@"%lu", _sign);
-    
-    [_allCellHeightMutableArray removeAllObjects];
-    [_cellHeightMutableArray removeAllObjects];
-    [_cell1HeightMutableArray removeAllObjects];
-    
+- (void) calculateLongCellHeight{
     NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
-    CGFloat nameH1 = 0.0, nameH2 = 0.0;
-    for (int i = 0; i < [_commentsView.allJSONModel.comments count]; i++) {
-        NSString *string1 = [_commentsView.allJSONModel.comments valueForKey:@"content"][i];
+    CGFloat nameH1 = 0.0, nameH2 = 0.0, nameH3 = 0.0;
+    for (int i = 0; i < [self->_commentsView.allJSONModel.comments count]; i++) {
+        NSString *string1 = [self->_commentsView.allJSONModel.comments valueForKey:@"content"][i];
         CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
         nameH1 = tmpRect1.size.height + 85;
-
-        NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
+        
+        NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
         if (![string2 isKindOfClass:[NSString class]]) {
             nameH2 = 0.0;
         } else {
-            if (_sign == 1) {
-                CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-                nameH2 = tmpRect2.size.height;
-            } else {
-                nameH2= 53.3333;
-            }
+            nameH2= 53.3333;
         }
-        [_cellHeightMutableArray addObject:@(nameH1 + nameH2)];
+        CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH3 = tmpRect2.size.height;
+        [self->_cellHeightMutableArray addObject:@(nameH1 + nameH2)];
+        [self->_commentsView.LongReplyHeightMutableArray addObject:@(nameH3)];
     }
-    [_allCellHeightMutableArray addObject:_cellHeightMutableArray];
-
-    for (int i = 0; i < [_commentsView.allShortJSONModel.comments count]; i++) {
-        NSString *string1 = [_commentsView.allShortJSONModel.comments valueForKey:@"content"][i];
-        CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-        nameH1 = tmpRect1.size.height + 85;
-
-
-        NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
-        if (![string2 isKindOfClass:[NSString class]]) {
-            nameH2 = 0.0;
-        } else {
-            if (_sign == 1) {
-                CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
-                nameH2 = tmpRect2.size.height;
-            }else {
-                nameH2= 53.3333;
-            }
-        }
-        [_cell1HeightMutableArray addObject:@(nameH1 + nameH2)];
-    }
-    [_allCellHeightMutableArray addObject:_cell1HeightMutableArray];
-    NSLog(@"ccc%@", _allCellHeightMutableArray);
-
-    [_commentsView.tableView beginUpdates];
-    [_commentsView.tableView endUpdates];
-
+    [self->_allCellHeightMutableArray addObject:self->_cellHeightMutableArray];
 }
 
+- (void) calculateShortCellHeight{
+    CGFloat nameH1 = 0.0, nameH2 = 0.0, nameH3 = 0.0;
+    NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
+    for (int i = 0; i < [self->_commentsView.allShortJSONModel.comments count]; i++) {
+        NSString *string1 = [self->_commentsView.allShortJSONModel.comments valueForKey:@"content"][i];
+        CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH1 = tmpRect1.size.height + 85;
+        
+        NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
+        if (![string2 isKindOfClass:[NSString class]]) {
+            nameH2 = 0.0;
+        } else {
+            nameH2= 53.3333;
+        }
+        CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH3 = tmpRect2.size.height;
+        [self->_cell1HeightMutableArray addObject:@(nameH1 + nameH2)];
+        [self->_commentsView.shortReplyHeightMutableArray addObject:@(nameH3)];
+    }
+    [self->_allCellHeightMutableArray addObject:self->_cell1HeightMutableArray];
+    NSLog(@"aaa%@", self->_allCellHeightMutableArray);
+}
+
+- (NSNumber *) calculateClickedLongCellHeight:(NSIndexPath *) indexpath andSign:(NSInteger) sign{
+    NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
+    CGFloat nameH1 = 0.0, nameH2 = 0.0;
+    NSString *string1 = [self->_commentsView.allJSONModel.comments valueForKey:@"content"][indexpath.row];
+    CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+    nameH1 = tmpRect1.size.height + 85;
+    
+    NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][indexpath.row], [[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][indexpath.row]];
+    if (_sign == 1) {
+        CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH2 = tmpRect2.size.height;
+    } else {
+        nameH2 = 53.3333;
+    }
+    return @(nameH1 + nameH2);
+}
+
+- (NSNumber *) calculateClickedShortCellHeight:(NSIndexPath *) indexpath andSign:(NSInteger) sign{
+    NSDictionary *attri = @{NSFontAttributeName:[UIFont systemFontOfSize:18]};
+    CGFloat nameH1 = 0.0, nameH2 = 0.0;
+    NSString *string1 = [self->_commentsView.allShortJSONModel.comments valueForKey:@"content"][indexpath.row];
+    CGRect tmpRect1 = [string1 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+    nameH1 = tmpRect1.size.height + 85;
+    
+    NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][indexpath.row], [[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][indexpath.row]];
+    if (_sign == 1) {
+        CGRect tmpRect2 = [string2 boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80, 1500) options:NSStringDrawingUsesLineFragmentOrigin attributes:attri context:nil];
+        nameH2 = tmpRect2.size.height;
+    } else {
+        nameH2 = 53.3333;
+    }
+    return @(nameH1 + nameH2);
+}
+
+- (void) setIsSelectedMutbaleArray {
+    NSMutableArray *longArray = [NSMutableArray arrayWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", nil];
+    NSMutableArray *shortArray = [NSMutableArray arrayWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", nil];
+    [_isSelectedMutableArray addObject:longArray];
+    [_isSelectedMutableArray addObject:shortArray];
+    _commentsView.isSelectedMutableArray = [NSMutableArray arrayWithArray:_isSelectedMutableArray];
+}
+
+- (void) clickedButton:(UIButton *)button {
+    NSIndexPath *myIndex=[_commentsView.tableView indexPathForCell:(ZDICommentsTableViewCell *)[[button superview] superview]];
+    
+    NSNumber *number = [[NSNumber alloc] init];
+    if ([_isSelectedMutableArray[myIndex.section][myIndex.row] isEqualToString:@"0"]) {
+        [_isSelectedMutableArray[myIndex.section] replaceObjectAtIndex:myIndex.row withObject:@"1"];
+        if (myIndex.section == 0) {
+            _sign = 1;
+            number = [self calculateClickedLongCellHeight:myIndex andSign:_sign];
+        }else {
+            _sign = 1;
+            number = [self calculateClickedShortCellHeight:myIndex andSign:_sign];
+        }
+    }else {
+        [_isSelectedMutableArray[myIndex.section] replaceObjectAtIndex:myIndex.row withObject:@"0"];
+        if (myIndex.section == 0) {
+            _sign = 0;
+            number = [self calculateClickedLongCellHeight:myIndex andSign:_sign];
+        }else {
+            _sign = 0;
+            number = [self calculateClickedShortCellHeight:myIndex andSign:_sign];
+        }
+    }
+  
+    [_allCellHeightMutableArray[myIndex.section] replaceObjectAtIndex:myIndex.row withObject:number];
+    [_commentsView.tableView reloadRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationNone];
+}
 
 @end

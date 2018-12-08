@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UITableView *homePageTableView;
 @property (nonatomic, strong) NSMutableArray *modelArray;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray *titles;
 @property (nonatomic, strong) NSArray *lables;
 @property (nonatomic, strong) UIPageControl *homePageController;
 @property (nonatomic, strong) NSTimer *timer;

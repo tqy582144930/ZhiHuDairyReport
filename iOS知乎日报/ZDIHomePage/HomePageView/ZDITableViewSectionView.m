@@ -13,7 +13,7 @@
 - (instancetype) initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:0.24f green:0.78f blue:0.99f alpha:1.00f];
+        self.backgroundColor = [UIColor colorWithRed:0.02f green:0.56f blue:0.84f alpha:1.00f];
         _sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 0, frame.size.width/3.0, frame.size.height)];
         _sectionLabel.textColor = [UIColor whiteColor];
         [self addSubview:_sectionLabel];

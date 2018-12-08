@@ -53,6 +53,8 @@
         make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width/5*4, 50));
     }];
     
+    _shortReplyHeightMutableArray = [NSMutableArray new];
+    _LongReplyHeightMutableArray = [NSMutableArray new];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -78,15 +80,30 @@
         [cell.zanButton setTitle:[NSString stringWithFormat:@"%@", [_allJSONModel.comments[indexPath.row] valueForKey:@"likes"]] forState:UIControlStateNormal];
         cell.pinglinTextLabel.text = [_allJSONModel.comments[indexPath.row] valueForKey:@"content"];
         
+        if ([_isSelectedMutableArray[0][indexPath.row] isEqualToString:@"0"]) {
+            cell.replyLabel.numberOfLines = 2;
+            [cell.unfoldButton setTitle:@"展开" forState:UIControlStateNormal];
+        } else {
+            cell.replyLabel.numberOfLines = 0;
+            [cell.unfoldButton setTitle:@"收起" forState:UIControlStateNormal];
+        }
+        
         NSString *replyContentString = [[_allJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"content"];
         NSString *replyAuthorString = [[_allJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"author"];
+        CGFloat line = cell.replyLabel.font.lineHeight;
+        NSInteger lines = [_LongReplyHeightMutableArray[indexPath.row] floatValue]/line;
         if (![replyAuthorString isKindOfClass:[NSString class]]) {
             cell.replyLabel.text = @"";
             cell.unfoldButton.hidden = YES;
-        } else {
+        } else if (lines <= 2) {
+            cell.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", replyAuthorString, replyContentString];
+            cell.unfoldButton.hidden = YES;
+        }
+        else {
             cell.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", replyAuthorString, replyContentString];
             cell.unfoldButton.hidden = NO;
         }
+        [cell.unfoldButton addTarget:self action:@selector(unfoldButton:) forControlEvents:UIControlEventTouchUpInside];
         
         double time = [[_allJSONModel.comments[indexPath.row] valueForKey:@"time"] doubleValue];
         NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:time];
@@ -111,16 +128,33 @@
         [cell1.zanButton setTitle:[NSString stringWithFormat:@"%@",[_allShortJSONModel.comments[indexPath.row] valueForKey:@"likes"]]  forState:UIControlStateNormal];
         cell1.pinglinTextLabel.text = [_allShortJSONModel.comments[indexPath.row] valueForKey:@"content"];
         
+        if ([_isSelectedMutableArray[1][indexPath.row] isEqualToString:@"0"]) {
+            cell1.replyLabel.numberOfLines = 2;
+            [cell1.unfoldButton setTitle:@"展开" forState:UIControlStateNormal];
+        } else {
+            cell1.replyLabel.numberOfLines = 0;
+            [cell1.unfoldButton setTitle:@"收起" forState:UIControlStateNormal];
+        }
+        
         NSString *replyContentString = [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"content"];
         NSString *replyAuthorString = [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"reply_to"] valueForKey:@"author"];
         
+        CGFloat line = cell1.replyLabel.font.lineHeight;
+        NSInteger lines = [_shortReplyHeightMutableArray[indexPath.row] floatValue]/line;
+
         if (![replyAuthorString isKindOfClass:[NSString class]]) {
             cell1.replyLabel.text = @"";
             cell1.unfoldButton.hidden = YES;
-        } else {
+        }
+        else if (lines <= 2) {
+            cell1.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", replyAuthorString, replyContentString];
+            cell1.unfoldButton.hidden = YES;
+        }
+        else {
             cell1.replyLabel.text = [NSString stringWithFormat:@"//%@:%@", replyAuthorString, replyContentString];
             cell1.unfoldButton.hidden = NO;
         }
+        [cell1.unfoldButton addTarget:self action:@selector(unfoldButton:) forControlEvents:UIControlEventTouchUpInside];
         
         double time = [[_allShortJSONModel.comments[indexPath.row] valueForKey:@"time"] doubleValue];
         NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:time];
@@ -141,11 +175,17 @@
         } else {
             cell1.hidden = YES;
         }
-       
         return cell1;
     }
     
 }
 
+- (void) unfoldButton:(UIButton *)button {
+    if ([_delegate respondsToSelector:@selector(clickedButton:)]) {
+        [_delegate clickedButton:button];
+    } else {
+        
+    }
+}
 
 @end

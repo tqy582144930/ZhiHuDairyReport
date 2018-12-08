@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ZDICommentsModel.h"
 
+@protocol ZDICommentsTableViewDelegate <NSObject>
+
+- (void) clickedButton:(UIButton *)button;
+
+@end
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZDICommentsView : UIView <UITableViewDataSource>
@@ -19,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZDICommentsModel *allJSONModel;
 @property (nonatomic, strong) ZDICommentsModel *allShortJSONModel;
 @property (nonatomic, assign) NSInteger flag;
+@property (nonatomic, strong) NSMutableArray *isSelectedMutableArray;
+@property (nonatomic, weak) id<ZDICommentsTableViewDelegate>delegate;
+@property (nonatomic, assign) NSInteger sign;
+@property (nonatomic, strong) NSMutableArray *LongReplyHeightMutableArray;
+@property (nonatomic, strong) NSMutableArray *shortReplyHeightMutableArray;
 
 - (void) commentsViewInit;
 

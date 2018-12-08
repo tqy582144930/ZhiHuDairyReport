@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDINextViewController : UIViewController<WKNavigationDelegate, WKUIDelegate>
+@interface ZDINextViewController : UIViewController<WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) NSString *idNumber;
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) NSMutableArray *dataMutableArray;

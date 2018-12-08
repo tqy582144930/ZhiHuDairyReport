@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDICommentsViewController : UIViewController
+@interface ZDICommentsViewController : UIViewController 
 @property (nonatomic, strong) ZDICommentsView *commentsView;
 @property (nonatomic, strong) NSString *idNumber;
 @property (nonatomic, strong) NSMutableArray *cellHeightMutableArray;
@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger flag;
 @property (nonatomic, strong) UIButton *clickedButton;
 @property (nonatomic, assign) NSInteger sign;
+@property (nonatomic, strong) NSMutableArray *isSelectedMutableArray;
+
 @end
 
 NS_ASSUME_NONNULL_END
