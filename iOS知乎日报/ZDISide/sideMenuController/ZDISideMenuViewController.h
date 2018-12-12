@@ -17,4 +17,5 @@
 @interface ZDISideMenuViewController : UIViewController
 @property (nonatomic, weak)id <MenuControllerDelegate> delegate;
 @property (nonatomic, strong) ZDISideMenuView *sideMenuView;
+@property (nonatomic, strong) NSMutableArray *collectionMutableArray;
 @end

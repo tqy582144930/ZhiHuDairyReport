@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Webkit/Webkit.h>
 #import "ZDINextView.h"
+#import "ZDIShareView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *allIdnumberMutableArray;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) NSInteger row;
+@property (nonatomic, strong) NSMutableArray *modelArray;
+@property (nonatomic, strong) ZDIShareView* shareView;
 
 @end
 

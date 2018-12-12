@@ -138,7 +138,8 @@
         nameH1 = tmpRect1.size.height + 85;
         
         NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
-        if (![string2 isKindOfClass:[NSString class]]) {
+        NSLog(@"string2 = %@", string2);
+        if ([string2 isEqualToString:@"//<null>:<null>"]) {
             nameH2 = 0.0;
         } else {
             nameH2= 53.3333;
@@ -160,7 +161,7 @@
         nameH1 = tmpRect1.size.height + 85;
         
         NSString *string2 = [NSString stringWithFormat:@"//%@:%@",[[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"author"][i], [[self->_commentsView.allShortJSONModel.comments valueForKey:@"reply_to"] valueForKey:@"content"][i]];
-        if (![string2 isKindOfClass:[NSString class]]) {
+        if ([string2 isEqualToString:@"//<null>:<null>"]) {
             nameH2 = 0.0;
         } else {
             nameH2= 53.3333;
@@ -171,7 +172,7 @@
         [self->_commentsView.shortReplyHeightMutableArray addObject:@(nameH3)];
     }
     [self->_allCellHeightMutableArray addObject:self->_cell1HeightMutableArray];
-    NSLog(@"aaa%@", self->_allCellHeightMutableArray);
+
 }
 
 - (NSNumber *) calculateClickedLongCellHeight:(NSIndexPath *) indexpath andSign:(NSInteger) sign{

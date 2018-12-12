@@ -87,8 +87,10 @@
     nextViewController.section = section;
     nextViewController.row = row;
     nextViewController.allIdnumberMutableArray = [NSMutableArray arrayWithArray:_allIdNumberMutableArray];
+    nextViewController.modelArray = [NSMutableArray arrayWithArray:_dayMutableArray];
     [self.navigationController pushViewController:nextViewController animated:NO];
 }
+
 
 //设置纯色图片
 + (UIImage *) creatImageWithColor:(UIColor *)color {
@@ -194,7 +196,6 @@
                 [sectionIdMutableArray addObject:idString];
             }
             [self->_allIdNumberMutableArray addObject:sectionIdMutableArray];
-            
             [self->_homePageView.homePageTableView reloadData];
             self.isLoading = NO;
         } error:^(NSError *error) {

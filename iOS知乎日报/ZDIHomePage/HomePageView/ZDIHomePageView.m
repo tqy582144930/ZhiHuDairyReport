@@ -131,7 +131,6 @@ static const int imageButtonCount = 3;
 //根据传入的图片数组设置图片
 - (void)setImages:(NSArray *)images {
     _images = images;
-    NSLog(@"images = %@, titles = %@",images, _titles);
     //pageControl的页数就是图片的个数
     _homePageController.numberOfPages = images.count;
     //默认一开始显示的是第0页
@@ -168,8 +167,14 @@ static const int imageButtonCount = 3;
         [imageBtn setBackgroundImage:self.images[index] forState:UIControlStateHighlighted];
         [imageBtn setTitle:self.titles[index]forState:UIControlStateNormal];
         [imageBtn setTitle:self.titles[index]forState:UIControlStateHighlighted];
+        [self initButton:imageBtn];
     }
 }
+
+-(void)initButton:(UIButton*)button{
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(150 ,0.0, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
+}
+
 //状态改变之后更新显示内容
 - (void)updateContent {
     CGFloat width = self.bounds.size.width;

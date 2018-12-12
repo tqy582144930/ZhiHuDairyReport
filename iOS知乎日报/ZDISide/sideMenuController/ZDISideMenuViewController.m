@@ -8,6 +8,7 @@
 
 #import "ZDISideMenuViewController.h"
 #import "ZDISideMenuView.h"
+#import "ZDICollectViewController.h"
 
 @interface ZDISideMenuViewController ()
 
@@ -23,8 +24,11 @@
     _sideMenuView = [[ZDISideMenuView alloc] initWithFrame:self.view.bounds];
     [_sideMenuView ZDISideMenuViewInit];
     [_sideMenuView.itemButton addTarget:self action:@selector(menuItemSelected:) forControlEvents:  UIControlEventTouchUpInside];
-//    [_sideMenuView.setUpButton addTarget:self action:@selector(menuItemSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [_sideMenuView.colletctButton addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sideMenuView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendCollection:) name:@"sendCollection" object:nil];
+    _collectionMutableArray = [NSMutableArray new];
 }
 //选中菜单栏
 - (void)menuItemSelected: (UIButton *)sender
@@ -40,6 +44,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)clickedButton:(UIButton *)button {
+    ZDICollectViewController *collectViewController = [[ZDICollectViewController alloc] init];
+    collectViewController.collectionMutableArray = [NSMutableArray arrayWithArray:_collectionMutableArray];
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:collectViewController];
+    [self presentViewController:navigation animated:YES completion:nil];
+}
+
+- (void)sendCollection:(NSNotification *)notification {
+    [_collectionMutableArray addObject:notification.object];
+    
+}
 /*
 #pragma mark - Navigation
 

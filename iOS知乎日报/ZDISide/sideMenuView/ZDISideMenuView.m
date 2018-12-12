@@ -93,6 +93,8 @@
     [button setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -15)];//图片距离右边框距离减少图片的宽度，其它不边
 }
 
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

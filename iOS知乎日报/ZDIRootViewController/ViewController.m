@@ -45,7 +45,7 @@
 }
 
 //添加子控制器对象
-- (void)addContentControllers {
+  - (void)addContentControllers {
     ZDIHomePageViewController *homePageViewController = [[ZDIHomePageViewController alloc] init];
     UINavigationController * homePageNavigation = [[UINavigationController alloc] initWithRootViewController:homePageViewController];
     

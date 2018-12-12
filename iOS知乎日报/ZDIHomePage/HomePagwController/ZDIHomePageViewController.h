@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *titleMutableArray;
 @property (nonatomic, strong) NSString *idNumber;
 @property (nonatomic, strong) NSMutableArray *allIdNumberMutableArray;
+@property (nonatomic, strong) NSMutableArray *collectionMutabelArray;
 
 + (UIImage *) creatImageWithColor:(UIColor *)color;
 

@@ -17,6 +17,7 @@ typedef void(^ZDINextData)(NSMutableArray *homaPageModel);
 typedef void(^ErrorHandle)(NSError *error);
 
 @interface ZDINextManger : NSObject
+@property (nonatomic, strong) NSMutableArray *collectionMutabelArray;
 
 + (instancetype)sharedManager;
 
