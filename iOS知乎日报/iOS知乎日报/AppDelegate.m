@@ -2,12 +2,12 @@
 //  AppDelegate.m
 //  iOS知乎日报
 //
-//  Created by 涂强尧 on 2018/10/16.
-//  Copyright © 2018年 涂强尧. All rights reserved.
+//  Created by 涂强尧 on 2018/11/5.
+//  Copyright © 2018 涂强尧. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "ZDIHomePageViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,13 +18,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    ViewController *rootViewController = [[ViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:rootViewController];
-    self.window.rootViewController = nav;
-    [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

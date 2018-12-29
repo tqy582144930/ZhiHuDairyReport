@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  ZDITableViewSectionView.h
 //  iOS知乎日报
 //
 //  Created by 涂强尧 on 2018/11/5.
@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface ZDITableViewSectionView : UIView
 
-@property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, strong) UILabel *sectionLabel;
 
 @end
-
